@@ -1,0 +1,30 @@
+%h2.page-header
+  Benvenuto
+.row.gridwidget-row
+  .col-md-12
+    .shelf-widget.WidgetHolder
+      %header
+        %a.show-all.pull-right{href: books_path}
+          Vedi tutti
+        %h4
+          Le ultime novità
+      .covers-carousel
+        .carousel-mask
+          .carousel-items
+            - @books.each do |book|
+              .cover-wrapper.item
+                %a.cover.cover-loaded{href: book_path(book), title: book.title}
+                  .cover-overlay.adjust-size
+                  .cover-border.left
+                  %img{src: book.cover.url, title: 'Vai al dettaglio'}
+          %button.carousel-action.next
+            %i.fa.fa-chevron-right
+          %button.carousel-action.prev
+            %i.fa.fa-chevron-left
+          .carousell-right-shadow
+
+
+:javascript
+  $(document).on('ready', function() {
+    $(".shelf-widget").coversCarousel();
+  });

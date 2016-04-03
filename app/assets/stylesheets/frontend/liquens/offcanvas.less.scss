@@ -1,0 +1,244 @@
+/*
+ * Main layout and backgrounds
+ * --------------------------------------------------
+ */
+
+// Create a row for offcanvas + set background
+body {
+  @include make-row();
+  background-color: $offcanvas-sidebar-bg;
+  @media (min-width: $grid-float-breakpoint) {
+    background-color: $brand-primary;
+  }
+}
+// Set offcanvas dimensions
+.sidebar-offcanvas {
+  @include make-xs-column(8);
+}
+
+.sidebar-offcanvas + .page-offcanvas {
+  @include make-xs-column(12);
+}
+// Set main content background
+.sidebar-offcanvas + .page-offcanvas {
+  background-color: #fff;
+}
+
+// Reset margin+padding on left canvas
+.row-offcanvas {
+  margin-right: 0;
+  margin-left: 0;
+  .sidebar-offcanvas + .page-offcanvas {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+// Set transition and relative positioning
+.row-offcanvas {
+  position: relative;
+  @include transition(all 0.25s ease-out);
+}
+
+// Hide sidebar outside the screen
+.row-offcanvas-left
+.sidebar-offcanvas {
+  left: -70%;
+}
+
+// Show sidebar when .active
+.row-offcanvas-left.active {
+  left: 70%;
+}
+
+// Prevent stack of sidebar sibling
+.sidebar-offcanvas {
+  position: absolute;
+  top: 0;
+  width: 70%;
+
+  // Default link color on sidebar
+  a {
+    color: $offcanvas-sidebar-link-color;
+  }
+  ul {
+    margin-bottom: 0;
+  }
+
+  // Labels
+  .label-warning{
+    &:hover, &:active, &:focus {
+      background: darken(#C67605,5%);
+    }
+  }
+  a[data-toggle]{
+    &:hover, &:active, &:focus {
+      text-decoration: none;
+    }
+  }
+
+  .offcanvas-btn {
+    display: inline-block;
+    margin-left: 10px;
+    &:first-child  {
+      margin-left: 0;
+    }
+  }
+
+  .offcanvas-row {
+    line-height: 1.5 * $line-height-computed;
+  }
+}
+
+// Set styles and colors
+.sidebar-offcanvas {
+  background: $offcanvas-sidebar-bg;
+  color: $offcanvas-sidebar-color;
+
+  // Avatar and username
+  .sidebar-top {
+    padding: 15px 0;
+    .avatar {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    // On tablet/mobile: don't show link to mydiscovery
+    a[href="mydiscovery"] {
+      display: none;
+      @media (min-width: $grid-float-breakpoint) {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    }
+
+    ul.userData {
+      margin: 0;
+    }
+
+    p {
+      margin-bottom: 0
+    }
+  }
+
+  ul.sidebar-nav {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 0;
+    list-style: none;
+
+    & > li {
+      display: block;
+      & > a {
+        display: block;
+        padding: 10px 15px 10px 30px;
+        &:focus,
+        &:active,
+        &:hover {
+          color: $offcanvas-sidebar-bg;
+          background: $offcanvas-sidebar-link-color;
+          text-decoration: none;
+        }
+      }
+    }
+
+    li + li {
+      border-top:1px solid #444;
+    }
+    .nav-header {
+      color: #fff;
+      text-shadow: none;
+      padding: 20px 0 0 15px;
+      &:first-child {
+        border-top: none;
+        padding-top: 10px;
+      }
+    }
+
+    @media (min-width: $screen-sm-min) {
+      display: none;
+    }
+  }
+
+  .sidebar-bottom {
+    margin-top: 40px;
+  }
+
+  // On tablet/mobile: remove container default padding
+  @media (max-width: $screen-xs-max) {
+    .container {
+      padding: 0;
+    }
+  }
+}
+
+
+// Put your canvas back on the street when NOT on mobile
+@media (min-width: $grid-float-breakpoint) {
+  body {
+    margin-top: $offcanvas-toolbar-height;
+  }
+  .sidebar-offcanvas {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+
+    font-size: 0.9em;
+
+    background: $offcanvas-toolbar-background;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+
+    .row-offcanvas-left & {
+      left: 0;
+    }
+
+    .offcanvas-row {
+      display: inline-block;
+      margin-left: 10px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    .sidebar-nav {
+      display: none !important;
+    }
+
+    .sidebar-top, .sidebar-bottom {
+      margin: 0;
+      padding: 0;
+    }
+
+    .sidebar-top {
+      float: left;
+      padding: 0;
+      .avatar {
+        margin: 0;
+        height: $offcanvas-toolbar-height;
+        width: $offcanvas-toolbar-height;
+        // Set avatar to mini dimensions
+        img {
+          height: $offcanvas-toolbar-height;
+          width: $offcanvas-toolbar-height;
+          border-radius: 0;
+        }
+        .overlay {
+          bottom: 2px;
+          font-size: 6px;
+        }
+
+      }
+    }
+
+    .sidebar-bottom {
+      float: right;
+    }
+
+    .login:hover i, .login:active i, .login:focus i {
+      text-decoration: none;
+    }
+
+  }
+
+}

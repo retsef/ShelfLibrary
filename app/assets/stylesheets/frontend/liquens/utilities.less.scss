@@ -1,0 +1,64 @@
+/*
+ *	Utilities classes
+ *  Thanks to $ciromattia for all his support - We <3 you
+*/
+
+//  Highlight js modified content
+.highlightable {
+  @include transition(background-color 2s);
+  &.highlight {
+    background-color: #FFFE9D !important;
+  }
+}
+
+//  Alert-error is used on login error messages
+.alert-error {
+  @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+}
+
+//  Spinners
+#loading {
+  display: none;
+  width:20px;
+  height:20px;
+  margin:20px;
+  background: image_url('images/spinner.gif') center no-repeat;
+}
+
+*[data-isloading]:before {
+  content: image_url('images/spinner.gif');
+  vertical-align: middle;
+}
+
+//  Messages
+.message {
+  font-size: 1.2em;
+  font-weight: bold;
+  &.bad {
+    color: #DB1111;
+  }
+  &.good {
+    color: Green;
+  }
+}
+
+#feedback {
+  position: fixed;
+  max-height: 1px;
+  overflow: visible;
+  text-align: center;
+  top: 0;
+  left: 15px;
+  right: 15px;
+  z-index: $zindex-feedback;
+  .alert {
+    margin-top: 15px;
+    padding: 8px 20px;
+    display: inline-block;
+    opacity: 0.97;
+    @include box-shadow(0 7px 11px 4px rgba(0, 0, 0, 0.23));
+    .close {
+      padding-left: 10px;
+    }
+  }
+}

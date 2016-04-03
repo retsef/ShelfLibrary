@@ -1,0 +1,146 @@
+/* Mixins */
+
+@mixin box-sizing($sizing)
+{
+  -webkit-box-sizing: $sizing;
+  -moz-box-sizing:    $sizing;
+  box-sizing:         $sizing;
+}
+
+@mixin list($margin: 0, $padding: 0, $position: outside)
+{
+  margin: $margin;
+  padding: $padding;
+  list-style: none;
+  list-style-position: $position;
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@mixin dlist($margin: 0, $padding: 0)
+{
+  margin: $margin;
+  padding: $padding;
+  dd, dt {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@mixin coolBorder($color: #ddd)
+{
+  border: 1px $color solid;
+  border-top-color: $color;
+  border-bottom-color: darken($color, 2/15 * 100%);
+  border-top-color: lighten($color, 1/15 * 100%);
+  @include box-shadow(0 1px 3px rgba(0,0,0,0.15));
+}
+
+// Shadow inside a button - useful for a toolbar
+@mixin activeButton {
+  background-image: none;
+  outline: 0;
+  @include box-shadow(#{"inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)"});
+}
+
+@mixin forumButton()
+{
+  display: inline-block;
+  width: auto;
+  height: 20px;
+  line-height: 20px;
+  background-image: none;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 0 10px;
+  &.hidden{
+    display: none;
+  }
+}
+
+// Font Awesome Icon Mixin - to put an icon where you want
+@mixin fa-icon {
+  position: relative;
+  &:before{
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+//  Add a transparency to the end of a long paragraph.
+//  Accept the max number of lines to show and the fading color
+//  Deprecated from DNG 5.0
+//@mixin fade-multilines($lineHeight: $line-height-computed, $max-lines: 1, $color: white) {
+//    max-height: $lineHeight * $max-lines;
+//    overflow: hidden;
+//    position: relative;
+//    &:after{
+//        content: "";
+//        display: block;
+//        position: absolute;
+//        top: $lineHeight * ($max-lines - 1);
+//        right: 0;
+//        #gradient > @include horizontal-three-colors(rgba(255,255,255,0), $color, 80%, $color);
+//        background-color: transparent;
+//        height: $lineHeight;
+//        width: 80px;
+//    }
+//}
+
+//  Left column menu
+.menu-btn {
+  font-variant: small-caps;
+}
+
+.menu-column {
+  display: none;
+  @media (min-width: $screen-md-min) {
+    display: inherit;
+  }
+}
+
+//  Add a super-extra small column
+@mixin make-xxs-column-offset($columns)
+{
+  @media (min-width: $screen-xxs-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-xxs-column-push($columns)
+{
+  @media (min-width: $screen-xxs-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-xxs-column-pull($columns)
+{
+  @media (min-width: $screen-xxs-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+
+//  Responsive pull and push
+@mixin make-pull($class, $direction)
+{
+  $var: "screen-#{class}-min";
+  @media (min-width: $var) {
+    float: $direction !important;
+  }
+}
+
+.pull-left-xs { @include make-pull(xs, left); }
+.pull-left-sm { @include make-pull(sm, left); }
+.pull-left-md { @include make-pull(md, left); }
+.pull-left-lg { @include make-pull(lg, left); }
+
+.pull-right-xs { @include make-pull(xs, right); }
+.pull-right-sm { @include make-pull(sm, right); }
+.pull-right-md { @include make-pull(md, right); }
+.pull-right-lg { @include make-pull(lg, right); }

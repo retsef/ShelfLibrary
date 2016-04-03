@@ -1,0 +1,109 @@
+/**
+	Customized variables used by Liquens (aka DiscoveryNG).
+
+	The first part override bootstrap default variables. For the whole list of
+	variables see under components/boostrap/less/variables.less
+	The second part are liquens specific variables.
+
+**/
+
+// Bootstrap variables
+// -------------------------------------------------------
+
+$font-family-sans-serif:  "Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+
+$btn-default-border: #bbb;
+
+//$brand-primary: #b02b2c;
+
+$link-color: #08c;
+
+$navbar-height:                         30px;
+$navbar-default-color:                  #fff;
+$navbar-default-bg:                     rgba(255,255,255,0);
+$navbar-default-border:                 transparent;
+$navbar-border-radius:                  0;
+$navbar-default-link-color:             #fff;
+$navbar-default-link-hover-color:       $text-color;
+$navbar-default-link-hover-bg:          #fff;
+$navbar-default-link-active-color:      $text-color;
+$navbar-default-link-active-bg:         #fff;
+$navbar-default-link-disabled-color:    #ccc;
+$navbar-default-link-disabled-bg:       transparent;
+
+$navbar-padding-horizontal:             0;
+$navbar-padding-vertical:               (($navbar-height - $line-height-computed) / 2);
+
+// Navbar toggle
+$navbar-default-toggle-hover-bg:        #ddd;
+$navbar-default-toggle-icon-bar-bg:     #fff;
+$navbar-default-toggle-border-color:    #ddd;
+
+// Set inner padding the same as title padding (15px)
+$modal-inner-padding:         $modal-title-padding;
+
+
+// Font Awesome variables (just the path relative to liquens.css position)
+// -------------------------------------------------------
+$fa-font-path: "fonts";
+
+
+// Liquens variables
+// -------------------------------------------------------
+
+// The path of the root with respect to the generated css file
+$base-url: "../../../";
+
+// DNG Header and main layout
+$containerWidth: $container-desktop;
+
+// Super extra small screen / phone
+// This is just for LG Optimus One and, maybe, your next watch
+$screen-xxs-min:                 ($screen-xs / 2);
+$screen-xxs-max:                 ($screen-xs-min - 1);
+
+
+
+// Off canvas sidebar
+$offcanvas-sidebar-color:                      #f7f7f7;
+$offcanvas-sidebar-bg:                         #333;
+$offcanvas-sidebar-link-color:                 #f7f7f7;
+// Off canvas stacked rules
+$offcanvas-toolbar-height: 2em;
+$offcanvas-toolbar-background: rgba(darken($brand-primary, 10%), .8);
+
+$zindex-feedback:             1100;
+
+//Default border color (we need this?)
+$border-color: #eee;
+
+$inputheight: 1.55em;
+
+// Covers
+$cover-height: 12.51em;
+$cover-width: 8.718em;
+
+//$cover-width-px: unit($cover-width) * $font-size-base;
+
+//User avatar
+$avatar_size_mini: 20px;
+$avatar_size_small: 32px;
+$avatar_size_medium: 45px;
+$avatar_size_large: 100px;
+
+$avatar_ribbon_color: rgb(228, 1, 1);
+
+//Stars
+$star-color-full: Gold;
+$star-color-empty: #ddd;
+$star-color-active: Orange;
+
+//Color scheme
+$renewableLoanRowBackground: #ffe4b9;
+
+//Some reference for other themes
+//DNG red (vda, sbpvr, rbb): b02b2c
+//DNG green (sbcr): 327e04
+//DNG blue (bct): 174994
+//DNG orange (bibliogo, chioggia): D15600
+//DNG marÃ²n (ambrosiana): 794a20

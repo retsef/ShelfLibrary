@@ -1,0 +1,130 @@
+/*
+	Utility classes for content.
+*/
+
+//  Apply responsive style by default on images
+.content img {
+  max-width: 100%;
+  height: auto;
+}
+
+//  Informative content boxes (block or inline):
+@mixin content-box-mixin {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  @include fa-icon;
+  &:before {
+    position: absolute;
+  }
+}
+
+p[class^="content-box-"] {
+  @include content-box-mixin;
+  border-radius: 4px;
+  padding: 8px 20px 8px 40px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  &:before{
+    font-size: 1.6em;
+    left: 10px;
+    top: 8px;
+  }
+}
+
+span[class^="content-box-"] {
+  @include content-box-mixin;
+  border-radius: 4px;
+  padding: 2px 5px 2px 25px;
+  &:before{
+    font-size: 1em;
+    left: 5px;
+    top: 4px;
+  }
+}
+
+span.content-box-info, p.content-box-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+  &:before {
+    content: "\f05a";
+  }
+}
+
+span.content-box-warning, p.content-box-warning {
+  background-color: #f2dede;
+  border: 1px solid darken(adjust-hue(#f2dede, -10), 3%);
+  color: #b94a48;
+  &:before {
+    content: "\f071";
+  }
+}
+
+span.content-box-idea, p.content-box-idea {
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  color: #c09853;
+  &:before {
+    content: "\f0eb";
+  }
+}
+
+span.content-box-download, p.content-box-download {
+  background-color: #F1F1F1;
+  border: 1px solid rgba(65, 155, 30, 0.5);
+  color: #666;
+  &:before {
+    content: "\f019";
+    color: #419B1E;
+  }
+}
+
+//  Citation
+blockquote{
+  @include content-box-mixin;
+  padding: 8px 20px 8px 40px;
+  color: #777;
+  &:before {
+    content: "\f10d";
+    font-size: 1.6em;
+    left: 10px;
+    top: 10px;
+  }
+  p {
+    font-family: $font-family-serif;
+    font-style: italic;
+  }
+}
+
+
+//  Images and pastesnippet alignments
+.pastesnippet-wrapper.wrapper-right,
+img.image-right {
+  float: right;
+  padding: 0 0 1em 2em;
+}
+.pastesnippet-wrapper.wrapper-left,
+img.image-left {
+  float: left;
+  padding: 0 2em 1em 0;
+}
+.pastesnippet-wrapper.wrapper-left-alone,
+img.image-left-alone {
+  float: left;
+  margin-right: 100%;
+}
+.pastesnippet-wrapper.wrapper-center,
+img.image-center {
+  display : block;
+  margin: 0 auto 0 auto;
+  text-align: center;
+}
+.pastesnippet-wrapper.wrapper-right-alone,
+img.image-right-alone {
+  float: right;
+  margin-left: 100%;
+}
+
+.pastesnippet-wrapper {
+  display: block;
+}

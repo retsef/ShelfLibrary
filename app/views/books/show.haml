@@ -1,0 +1,48 @@
+.result-wrapper.clearfix{id: "book_#{@book.id}"}
+  .cover-wrapper
+    = render 'book_cover', locals: {book: @book}
+  .result-body
+    %span.doc-type-label.a01
+      Libri Standard
+    %h4.main-author{'property': 'author'}
+      - @book.authors.each do | author|
+        = author == @book.authors.last ? "#{author.name}" : "#{author.name},"
+    %h3.main-title
+      = @book.title
+    .man-info
+      %ul.circ
+        %li.reservations
+          %a.reserve{href: '#'}
+            %i.fa.fa-shopping-cart
+            Prenota
+        %li.items
+          %i.fa.fa-info-circle
+          %span
+            Copie totali:
+          %span.visible-items
+            1
+
+  #accordion.panel-group
+    .abstract
+      %p.abs-content{'property': 'description'}
+        %strong
+          Abstract:
+        = @book.description
+    .panel.panel-default
+      .panel-heading
+        %h4.panel-title
+          %a.collapsed{data: {'toggle': 'collapse', 'target': '#details'}}
+            Dettagli
+      #details.panel-collapse.collapse
+        .panel-body.detail
+          .pubdetails
+            %p
+              %strong
+                Titolo e contributi
+              = "#{@book.title} /"
+              - @book.authors.each do | author|
+                = author == @book.authors.last ? "#{author.name}" : "#{author.name},"
+            %p
+              %strong
+                Pubblicazione
+              = "#{@book.publisher.note} , #{@book.publisher.date}" if @book.publisher.present?

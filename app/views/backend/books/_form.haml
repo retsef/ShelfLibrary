@@ -1,0 +1,28 @@
+.row
+  .col-lg-12
+    %h1.page-header
+      Book
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        Book
+      .panel-body
+        .col-lg-12
+          = simple_form_for([:backend, @book], html: { multipart: true, class: 'form-horizontal' }) do |form|
+            = form.input :title
+            = form.input :subtitle
+            = form.input :description, as: :text
+
+            = form.input :isbn_code, wrapper: :vertical_input_group do
+              = form.input_field :isbn_code, class: 'form-control'
+              %span.input-group-btn
+                = form.submit 'grab info from SBN', class: 'btn btn-default', name: 'get_sbn_book_info'
+
+            = form.input :author_ids, collection: Author.all, input_html: {multiple: true}
+            = form.input :collection_id, collection: Collection.all
+
+            = form.input :cover, as: :file
+
+            = form.submit class: 'btn btn-default'
+

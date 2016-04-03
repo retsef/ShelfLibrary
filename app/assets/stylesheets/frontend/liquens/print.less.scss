@@ -1,0 +1,54 @@
+// Print stlyes
+@media print {
+
+  // Remove URL from anchors
+  a[href]::after {
+    content: "";
+  }
+
+  // Totally remove things
+  body > header[role="banner"],
+  body > footer[role="contentinfo"],
+  .facet-list,
+  .title-actions,
+  .myDiscovery .btn {
+    display: none !important;
+  }
+
+  // Full width for search results
+  .pagetype-SearchPage main .col-md-9 {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  // Show full abstract on result page
+  .abs-content {
+    .read-more {
+      display: none;
+    }
+    .details {
+      display: inline-block !important;
+      .read-less {
+        display: none !important;
+      }
+    }
+  }
+
+  // Show a border instead of fakeCover
+  .fake-cover {
+    border: 1px solid #999;
+    .inner {
+      border: none;
+    }
+  }
+
+  // Show things on manifestationPage
+  .pagetype-ManifestationPage main {
+    .col-md2, .col-md-10 {
+      width: 100%;
+    }
+    #details, #abstract, #items, #comments {
+      display: inherit !important;
+    }
+  }
+}

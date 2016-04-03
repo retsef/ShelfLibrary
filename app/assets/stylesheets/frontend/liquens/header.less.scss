@@ -1,0 +1,233 @@
+/**
+ *	Header definitions with logo image positioning
+**/
+header[role="banner"] {
+  position: relative;
+  background: $brand-primary;
+
+  // Some styles to override default Bootstrap navbar colors
+  .navbar {
+    &.navbar-default {
+      border: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      @media (min-width: $grid-float-breakpoint) {
+        margin-top: 10px;
+      }
+    }
+    /*&.container {
+        padding-bottom: 0;
+    }*/
+    .nav > li > a:focus, .nav > li > a:hover {
+      .caret {
+        border-bottom-color: $navbar-default-link-hover-color;
+        border-top-color: $navbar-default-link-hover-color;
+      }
+
+      // On desktop add border radius
+      @media (min-width: $grid-float-breakpoint) {
+        @include border-top-radius(5px);
+      }
+    }
+    // On desktop add border radius
+    @media (min-width: $grid-float-breakpoint) {
+      .nav li.dropdown.open > .dropdown-toggle,
+      .nav li.dropdown.active > .dropdown-toggle,
+      .nav li.dropdown.open.active > .dropdown-toggle,
+      .nav > .active > a,
+      .nav > .active > a:hover,
+      .nav > .active > a:focus {
+        @include border-top-radius(5px);
+      }
+    }
+
+    // Menu topRight items inside collapsed nav
+    .nav > li.tr {
+      display: block;
+      @media (min-width: $grid-float-breakpoint) {
+        display: none;
+      }
+    }
+
+    // On tablet/mobile: place hamburger icon on right
+    @media (max-width: $screen-xs-max) {
+
+      .navbar-header {
+        position: absolute;
+        top: -13px;
+        right: 0;
+      }
+
+      .navbar-collapse{
+        margin-top: 30px;
+      }
+    }
+  }
+
+  // topRight menu colors
+  .nav-pills.nav-stacked {
+    li > a {
+      color: $navbar-default-color;
+      @media (min-width: $grid-float-breakpoint) {
+        padding: 5px 10px;
+      }
+    }
+    li.active a, a:focus,a:hover,a:active {
+      color: $navbar-default-link-hover-color;
+      background: $navbar-default-link-hover-bg;
+    }
+  }
+
+  // topRight menu default icons
+  li.tr {
+    a[href^="events"] i:before {
+      content: $fa-var-calendar;
+    }
+    a[href^="library"] i:before {
+      content: $fa-var-map-marker;
+    }
+    a[href^="community"] i:before {
+      content: $fa-var-comments;
+    }
+  }
+
+  // Login/mydiscovery and navigation buttons on small screen
+  .buttons-row {
+    position: relative;
+    display: block;
+    height: 15px;
+    //margin: 10px 15px 0 0;
+    // Positioning buttons
+    button[data-toggle='offcanvas'],
+    a[data-toggle='modal'] {
+      display: inline-block;
+      position: absolute;
+      z-index: $zindex-navbar + 10;
+      padding-top: 5px;
+    }
+
+    .btn-primary {
+      border-color: $navbar-default-toggle-border-color;
+      &:focus, &:active, &:hover {
+        background-color: $navbar-default-toggle-hover-bg;
+      }
+    }
+
+    // Hide on medium/large device
+    @media (min-width: $grid-float-breakpoint) {
+      display: none;
+    }
+  }
+}
+
+#loginModal .forgot {
+  font-size: 0.8em;
+  display: block;
+  margin-top: -10px;
+}
+
+// topRight menu when outside collapsed navbar
+.nav-pills.nav-stacked {
+  .mainHeader & {
+    display: none;
+
+    // On tablet/mobile: hide mainHeader > topRight
+    @media (min-width: $grid-float-breakpoint) {
+      display: block;
+      float: right;
+      max-width: 200px;
+      overflow: hidden;
+    }
+
+  }
+}
+
+// Contain the logo image, a search box and three quick links (named TopRight Menu)
+.mainHeader {
+  position: relative;
+  margin: 10px 0;
+  min-height: 85px;
+  @media (min-width: $grid-float-breakpoint) {
+    min-height: 100px;
+  }
+  a {
+    color: $navbar-default-link-color;
+    text-decoration: none;
+  }
+  // Float the logo and set a maximum width+height
+  .logo {
+    display: inline-block;
+    float: left;
+    img {
+      max-width: 220px;
+      max-height: 92px;
+      margin: 0 10px 0 0;
+      @include box-sizing(border-box);
+      @media (min-width: $screen-md-min) {
+        margin: 0 40px 0 0;
+      }
+    }
+  }
+  // Float title and search form
+  .siteTitle {
+    @media (min-width: $grid-float-breakpoint) {
+      float: left;
+    }
+    h1 {
+      font-size: 1.2em;
+      line-height: 1.1em;
+      margin-top: 0;
+      font-weight: bold;
+      text-shadow: 0 1px 0 rgba(0,0,0,.4);
+      color: $navbar-default-link-color;
+      letter-spacing: -1px;
+
+      @media (min-width: $grid-float-breakpoint) and (max-width: $screen-sm-max) {
+        font-size: 1.4em;
+        line-height: 1.4em;
+      }
+
+      @media (min-width: $screen-md-min) {
+        font-size: 1.6em;
+        line-height: 1.6em;
+      }
+    }
+    form {
+      margin-bottom:0;
+      .form-group {
+        margin-bottom: 0;
+      }
+      @media (min-width: $screen-xs-min) {
+        input {
+          min-width: 280px;
+        }
+      }
+      @media (min-width: $grid-float-breakpoint) {
+        max-width: 380px;
+      }
+    }
+    .links > a {
+      font-size: 0.9em;
+      &:focus,&:hover,&:active {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Prevent menu items to grow on two lines on large desktop
+@media (min-width: $screen-lg-desktop) {
+  .navbar.onerow .nav {
+    max-height: $navbar-height;
+    overflow: hidden;
+    position: static;
+    .dropdown {
+      position: static;
+      .dropdown-menu {
+        top: $navbar-height;
+        left: inherit;
+      }
+    }
+  }
+}

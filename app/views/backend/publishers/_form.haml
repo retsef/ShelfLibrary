@@ -1,0 +1,15 @@
+.row
+  .col-lg-12
+    %h1.page-header
+      Publisher
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        Publisher
+      .panel-body
+        .col-lg-12
+          = simple_form_for([:backend, @publisher], html: { multipart: true, class: 'form-horizontal' }) do |form|
+            = form.input :name
+
+            = form.submit class: 'btn btn-default'

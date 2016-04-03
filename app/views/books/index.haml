@@ -1,0 +1,51 @@
+%h2.page-header
+  Catalogo
+  %small
+    = @books.size
+.content.clearfix
+.content
+  Trovati
+  %strong
+    = @books.size
+  documenti
+.row
+  //.col-md-push-3
+  .col-md-9
+    .result-option.clearfix
+    #result-list.clearfix
+      - @books.each do |book|
+        .lst-item.result-wrapper.clearfix{id: "book_#{book.id}"}
+          .cover-wrapper
+            = render 'book_cover', locals: {book: book}
+          .result-body
+            %span.doc-type-label.a01
+              Libri Standard
+            .main-author{'property': 'author'}
+              - book.authors.each do | author|
+                = author == book.authors.last ? "#{author.name}" : "#{author.name},"
+            %p
+              %a.manifestation_link.main-title{href: book_path(book)}
+                = book.title
+            .details
+              %p
+                = "#{book.publisher.note} , #{book.publisher.date}" if book.publisher.present?
+            .man-info
+              %ul.circ
+                %li.reservations
+                  %a.reserve{href: '#'}
+                    %i.fa.fa-shopping-cart
+                    Prenota
+                %li.items
+                  %i.fa.fa-info-circle
+                  %span
+                    Copie totali:
+                  %span.visible-items
+                    1
+            .abstract
+              %p.abs-content{'property': 'description'}
+                %strong
+                  Abstract:
+                = truncate(book.description, length: 500)
+    //.results-pagination
+
+  //%aside.col-md-3.col-md-pull-9.facet-list

@@ -1,0 +1,1904 @@
+/**
+ *    Catalog styles: result page, facets, manifestation page, shelf
+*/
+
+.externalLink {
+  vertical-align: text-bottom;
+}
+
+.searchpage-image img{
+  margin-right: 15px;
+  float: left;
+}
+
+/* Search results facets */
+.facet-list {
+  // Facet sidebar title
+  h4 {
+    font-size: $font-size-base;
+    font-weight: normal;
+    text-shadow: 0 1px 0 #fff;
+    height: 25px;
+    padding: 5px 0;
+    margin: 0;
+  }
+  // Facet title
+  h5 {
+    border-bottom:2px solid lighten($brand-primary,5%);
+    margin-bottom: 0;
+    padding-bottom: 2px;
+  }
+  // Facet items
+  li {
+    font-size: 0.9em;
+    padding-left: 7px;
+    line-height: 1.8em;
+    position: relative;
+    &.even {
+      background: #f7f7f7;
+    }
+    a.exclude {
+      display: none;
+      //  When facets are shown on side
+      .aside {
+        position: absolute;
+        right: 3px;
+        top: 3px;
+      }
+    }
+  }
+  li:hover a.exclude {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 0.85em;
+    color: white;
+    background-color: #ccc ;
+    width: 14px;
+    line-height: 14px;
+    text-align: center;
+    border-radius: 3px;
+
+    &:hover{
+      background-color: darken(#D84444, 15%);
+    }
+  }
+
+  li.show_more {
+    text-align: right;
+    font-style: italic;
+    font-size: 0.9em;
+  }
+  //  Multiselect to choose the library
+  > select {
+    //.form-control;
+    font-size: 0.9em;
+    height: 2em;
+    padding: 0 3px;
+  }
+  //  Facets inside modal
+  .modal-body & {
+    font-size: 1.18em;
+    li {
+      line-height: 1.6em;
+    }
+  }
+}
+
+@mixin tag-bubble($backgroundValue: #E2F1FC, $font-size: 13px, $radius: 1.23em, $height: 2em)
+{
+  $hoverColor: darken($backgroundValue, 10%);
+  font-size: $font-size;
+  display: inline-block;
+  margin-right: 7px;
+  margin-left: 0;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  line-height: 0;
+  max-width: 100%;
+  overflow: hidden;
+
+  border-radius: $radius;
+  > * {
+    display: inline-block;
+    //padding: 0.23em 0;
+    height: $height;
+    line-height: $height;
+  }
+
+  .value {
+    background: $backgroundValue;
+    @include border-right-radius($radius);
+    @include border-left-radius(0);
+    padding-left: 0.46em;
+    padding-right: 1.15em;
+
+    max-width: 35em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .field {
+    color: #333;
+    @include border-right-radius(0);
+    @include border-left-radius($radius);
+    text-align: center;
+    background-color: darken($backgroundValue, 5%);
+    text-decoration: none;
+    padding-left: 0.62em;
+    padding-right: 0.46em;
+    max-width: 16em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    .fieldLabel {
+      font-weight: bold;
+    }
+
+    &:hover {
+      background-color: $hoverColor;
+      @include transition(0.2s);
+    }
+  }
+}
+
+.in_shelves{
+  text-align: left;
+  padding: 0;
+  margin: 1em 0 0;
+  font-size: 0.8em;
+  line-height: 0;
+  &[data-isloading]:before {
+    content: '';
+  }
+  &[data-isloading]:after {
+    content: image_url('images/spinner.gif');
+    position: relative;
+    top: -1em;
+  }
+  dt {
+    display: inline-block;
+    font-weight: normal;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: top;
+    margin-right: 7px;
+  }
+  dd {
+    @include tag-bubble(#FFEFE0, 1em, 4px);
+    margin-bottom: 10px;
+    .value {
+      @include fa-icon;
+      &:hover {
+        background-color: adjust-hue(#FFEFE0, 15);
+        text-decoration: none;
+      }
+      &:before {
+        margin-right: 3px;
+      }
+    }
+    &.default {
+      .value {
+        background-repeat: no-repeat;
+        background-position: 3px 2px;
+      }
+      &.favourites {
+        .value {
+          &:before {
+            content: $fa-var-heart;
+            color: #C80000;
+          }
+          &:hover {
+            &:before {
+              color: adjust-hue(#C80000, 15);
+            }
+          }
+        }
+      }
+      &.finished {
+        .value {
+          &:before {
+            content: $fa-var-check-square-o;
+            color: #21B384;
+          }
+          &:hover {
+            &:before {
+              color: adjust-hue(#21B384, 15);
+            }
+          }
+        }
+      }
+      &.not-finished {
+        .value {
+          &:before {
+            content: $fa-var-book;
+            color: #E99500;
+          }
+          &:hover {
+            &:before {
+              color: adjust-hue(#E99500, 15);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*  ResultPage summary inside teaser with
+    searched string, facets filters, result num */
+.facets-filter {
+  margin-bottom: 0;
+  @media (min-width: $screen-md-min) {
+    margin-right: 280px;
+  }
+  dt {
+    font-weight: normal;
+    margin-bottom: 5px;
+  }
+  dd {
+    @include tag-bubble(hsl(hue($brand-primary), 60%, 93%), 0.9em, 4px);
+  }
+}
+
+// Modal used to display all facets of a search
+#facets-modal {
+  .modal-body {
+    font-size: 0.9em;
+  }
+
+  ul {
+    margin: 0;
+  }
+
+  .modal-footer {
+    text-align: left;
+    margin-top: 0;
+    white-space: nowrap;
+    input[type="text"] {
+      display: none;
+      margin-left: 5px;
+      @media (min-width: $screen-xs-min) {
+        display: inline-block;
+      }
+    }
+  }
+
+  [data-uri] {
+    &[data-sort="count"] [data-action="sort-count"] {
+      @include activeButton;
+    }
+    &[data-sort="index"] [data-action="sort-index"] {
+      @include activeButton;
+    }
+  }
+
+  .pagination {
+    margin: 0;
+  }
+
+  input[type="text"] {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+}
+
+.search-helpers {
+  position: relative;
+}
+
+.externalSearches, .externalWidgetsSearches {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  right: -$grid-gutter-width;
+  padding: 10px $grid-gutter-width;
+  margin-top: -10px;
+  text-align: right;
+  font-size: 0.9em;
+  background-color: White;
+  border-radius: 5px;
+
+  strong {
+    display: block;
+  }
+
+  .popup {
+    display: block;
+    margin-top: 10px;
+  }
+
+  &.expanded {
+    opacity: 0.95;
+    @include coolBorder();
+    top: -1px;
+    right: -($grid-gutter-width + 1px);
+  }
+
+  .noresults {
+    color: #999;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: 10px;
+    li {
+      margin-left: 0;
+      margin-bottom: 5px;
+      img {
+        max-width: 16px;
+        vertical-align: -3px;
+      }
+    }
+  }
+}
+
+//  Result list options: save search and order
+.result-option {
+  padding: 5px 0;
+  min-height: 25px;
+  border-bottom: 1px solid #DDDDDD;
+  .savesearch-btn-group, .show-savedsearch {
+    float: right;
+  }
+  .savesearch-btn-group .dropdown-menu, .show-savedsearch {
+    font-size: 0.9em;
+  }
+  .savesearch-button {
+    span {
+      display: none;
+    }
+    @media (min-width: $screen-md-min) {
+      span {
+        display: inline-block;
+      }
+      i {
+        display: none;
+      }
+    }
+  }
+  .show-savedsearch {
+    color: #999;
+  }
+  form {
+    margin-bottom:0;
+    .form-group {
+      margin-bottom: 0;
+    }
+    label, select {
+      font-size: 0.9em;
+      float: left;
+      line-height: 2em;
+      height: 2em;
+    }
+    label {
+      margin-right: 1em;
+    }
+    select {
+      padding: 1px 3px;
+      width: 100px;
+      @media (min-width: $screen-md-min) {
+        width: 60%;
+      }
+    }
+  }
+}
+
+.doc-type {
+  font-size: 0.8em;
+  color: #666;
+  display: block;
+  img {
+    vertical-align: top;
+  }
+}
+
+//  Contains manifestation infos (aka .circ)
+.man-info {
+  margin: 1em 0;
+}
+
+//  Circulation details: reservation button, total items,
+//  total issues, items on loan, n. of reservations
+.circ {
+  color:#666;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  li {
+    border-radius: 4px;
+    background: #f0f0f0;
+    display: inline-block;
+    padding: 0 0.6em;
+    height: 2em;
+    font-size: 0.8em;
+    line-height: 2em;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    // On mobile show only icons
+    i + span {
+      display: none;
+    }
+    // Loans and reservation counter
+    > span:last-child {
+      display: inline-block;
+      font-weight: bold;
+    }
+    // Reservation button
+    &.reservations {
+      background: $brand-primary;
+      cursor: pointer;
+      padding: 0;
+      &:hover, &:active, &:focus{
+        background: lighten($brand-primary,5%);
+      }
+      > a {
+        color: #fff;
+        padding: 0 0.6em;
+        display: block;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      // On mobile make it alone
+      @media (max-width: $screen-xs-max) {
+        display: block;
+        clear: right;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        max-width: 120px;
+        height: 2.2em;
+        line-height: 2.2em;
+      }
+    }
+    &.other_editions {
+      cursor: pointer;
+      padding: 0;
+      > a {
+        color: #08c;
+        padding: 0 0.6em;
+        display: inline-block;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+    // Items label and info button
+    &.items {
+      cursor: pointer;
+      .pagetype-ManifestationPage & {
+        @media (min-width: $screen-sm-min) {
+          i.fa-info-circle { display: none; }
+        }
+      }
+    }
+    &.issues {
+      .pagetype-ManifestationPage & {
+        cursor: pointer;
+      }
+    }
+
+    // On desktop hide icons and show labels
+    @media (min-width: $screen-sm-min) {
+      margin-bottom: 0;
+
+      // On tablet/desktop hide icons
+      > i:first-child {
+        display: none;
+      }
+      // On tablet/desktop show labels and propoer icons
+      > i + span, i.fa-info-circle, i.fa-question-circle {
+        display: inline-block;
+      }
+    }
+  }
+}
+//  Not reservable label has a tooltip with more detailed explanation
+.not-reservable {
+  cursor: help;
+  display: inline-block;
+}
+
+//  Don't show reservation button on light template
+.light .reservations {
+  display: none;
+}
+
+// Resize item-modal dialog to handle the footable content
+.items-modal .modal-dialog {
+  @media (min-width: $screen-sm-min) {
+    width: $container-tablet;
+  }
+  @media (min-width: $screen-md-min) {
+    width: $container-desktop;
+  }
+}
+
+//  Adjust title detail's spaces when not on ManifestationPage
+#manifestation-review-header,
+#result-list,
+.manifestation-badge {
+  .result-body {
+    > p, .details p {
+      margin-bottom: 0
+    }
+    .belongsto {
+      margin-top: 10px;
+    }
+    .abstract {
+      padding: 0;
+      margin-top: 0.5em;
+      overflow: hidden;
+    }
+  }
+}
+
+// Show/hide divs on different viewports, when not on ManifestationPage
+#manifestation-review-header,
+#result-list .lst-item {
+  .title-rates, .abstract, .in_shelves {
+    display: none;
+  }
+  // On tablet/desktop
+  @media (min-width: $screen-sm-min) {
+    .title-rates, .title-actions, .abstract {
+      display: block;
+    }
+    .in_shelves {
+      display: inline-block;
+    }
+  }
+}
+
+// Show/hide divs on different viewports when on ManifestationPage
+.pagetype-ManifestationPage {
+  .title-rates, .title-actions #rating-form, .in_shelves {
+    display: none;
+  }
+  // On tablet/desktop
+  @media (min-width: $screen-sm-min) {
+    .title-rates, .title-actions #rating-form, .in_shelves, #share .embed-code {
+      display: block;
+    }
+  }
+}
+
+// Set margin and width for cover and cover-wrapper elements
+#manifestation-review-header,
+#result-list .lst-item,
+.pagetype-ManifestationPage {
+  $cover-size: 0.5em;
+  $cover-wrapper-width: $font-size-base;//((unit($cover-width) * $font-size-base) * unit($cover-size));
+  .cover {
+    font-size: $cover-size;
+  }
+  .add-to-shelf > .btn {
+    width: $cover-wrapper-width;
+  }
+  // On device like huge smartphone and small tablets
+  @media (min-width: 600px) {
+    $cover-size: 0.6em;
+    .cover {
+      font-size: $cover-size;
+    }
+    .add-to-shelf > .btn {
+      width: $cover-wrapper-width;
+    }
+  }
+  @media (min-width: 700px) {
+    $cover-size: 0.7em;
+    .cover {
+      font-size: $cover-size;
+    }
+    .add-to-shelf > .btn {
+      width: $cover-wrapper-width;
+    }
+  }
+  // On tablet
+  @media (min-width: $screen-sm-min) {
+    $cover-size: 0.8em;
+    .cover {
+      font-size: $cover-size;
+    }
+
+    .add-to-shelf > .btn {
+      padding: 5px;
+    }
+
+    .title-rates {
+      font-size: 16px;
+    }
+
+    .title-rates, .title-actions, .add-to-shelf > .btn {
+      width: $cover-wrapper-width;
+    }
+  }
+  // On desktop
+  @media (min-width: $screen-lg-min) {
+    $cover-size: 1.1em;
+    .cover {
+      font-size: $cover-size;
+    }
+
+    .title-rates {
+      font-size: 24px;
+    }
+
+    .title-rates, .title-actions, .add-to-shelf > .btn {
+      width: $cover-wrapper-width;
+    }
+  }
+}
+
+//  Create the grid layout for a manifestation: cover-wrapper + result-body
+//  Using Bootstrap grids we must (aka percentage) we must adjust some margins
+//  and paddings on different viewports
+.result-wrapper {
+  @include make-row();
+}
+
+.result-wrapper .cover-wrapper {
+  @include make-xs-column(2);
+
+  #manifestation-review-header,
+  #result-list & {
+    // On small screen there's the page padding, we can remove it
+    padding-left: 0;
+    // On small screen and tablet try to center the wrapper
+    @media (min-width: $screen-xs-min) and (max-width: $screen-sm-max) {
+      padding-left: 10px;
+    }
+    // On desktop
+    @media (min-width: $screen-md-min) {
+      padding-left: 8px;
+    }
+  }
+
+  // On destkop, avoid too blank space and align the cover to the menu first item
+  @media (min-width: $screen-md-min) {
+    .pagetype-ManifestationPage & {
+      padding-left: 30px;
+    }
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .pagetype-ManifestationPage & {
+      min-height: 270px;
+    }
+  }
+
+  //  Adding .inverted-columns to the body
+  //  change cover+result column ordering
+  .inverted-columns & {
+    @include make-xxs-column-push(10);
+    padding-left: 0 !important;
+  }
+  //  On ManifestationPage add some margine to the left of the cover
+  .inverted-columns.pagetype-ManifestationPage & {
+    @media (min-width: $screen-xxs-min) and (max-width: $screen-xxs-max) {
+      left:80%;
+    }
+  }
+}
+
+//  Result without cover
+.result-wrapper .result-body {
+  @include make-xs-column(12);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+//  Result with cover
+.result-wrapper .cover-wrapper + .result-body {
+  @include make-xs-column(10);
+
+  #manifestation-review-header,
+  #result-list & {
+    // This is just for LG Optimus One and, maybe, your next watch
+    @media (max-width: ($screen-xxs-min - 1)) {
+      padding-left: 40px;
+    }
+    // This is for small smartphone
+    @media (min-width: $screen-xxs-min) and (max-width: $screen-xs-max) {
+      padding-left: 25px;
+    }
+    // On small screen and tablet reduce the left margin (and so the blank space)
+    @media (min-width: $screen-xs-min) and (max-width: $screen-sm-max) {
+      padding-left: 5px;
+    }
+  }
+
+  .pagetype-ManifestationPage & {
+    padding-left: 0;
+    // This is just for LG Optimus One and, maybe, your next watch
+    @media (max-width: ($screen-xxs-min - 1)) {
+      padding-left: 40px + 15px;
+    }
+    // This is for small smartphone
+    @media (min-width: $screen-xxs-min) and (max-width: $screen-xs-max) {
+      padding-left: 25px + 15px;
+    }
+    // On small screen and tablet reduce the left margin (and so the blank space)
+    @media (min-width: $screen-xs-min) and (max-width: $screen-sm-max) {
+      padding-left: 8px;
+    }
+  }
+
+  //  Adding .inverted-columns to the body
+  //  change cover+result column ordering
+  .inverted-columns & {
+    @include make-xxs-column-pull(2);
+  }
+
+  .inverted-columns #manifestation-review-header,
+  .inverted-columns #result-list & {
+    padding-left: 0 !important;
+  }
+
+  .inverted-columns.pagetype-ManifestationPage & {
+    padding-left: 15px !important;
+  }
+}
+
+//  #accordion is used only on ManifestationPage
+.result-wrapper #accordion {
+  @include make-xs-column(12,0);
+}
+
+//  With cover make some space to the left
+.result-wrapper .cover-wrapper + .result-body + #accordion {
+  @include make-sm-column(10,0);
+
+  // On small screen and tablet reduce the left margin
+  // align the accordion with the .result-body
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    padding-left: 8px;
+  }
+  // Add a right margin to end the accordion aligned with last menu item
+  @media (min-width: $screen-sm-min) {
+    padding-right: 15px;
+  }
+
+  //  Adding .inverted-columns to the body
+  //  change cover+result column ordering
+  .inverted-columns & {
+    @include make-sm-column-pull(2);
+    @media (min-width: $screen-sm-min) {
+      padding-left: 15px;
+    }
+  }
+}
+
+//  On result page is shown a list of linked searches
+.linkedSearchesWrapper {
+  margin-left: 0;
+  margin-bottom: 20px;
+  span + span:before {
+    content: "-";
+  };
+}
+
+//  Pagination on result page
+.results-pagination {
+  text-align: center;
+  font-size: 0.9em;
+  // On small device hide pagination description
+  @media (max-width: $screen-sm-max) {
+    ul li:nth-child(3){
+      display: none;
+    }
+  }
+}
+
+//  List view: cover to the left of title's detail
+.lst-item {
+  padding: 10px 0;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  border-top: none;
+}
+
+//  Abstract shown on result page
+.abs-content{
+  overflow: auto;
+  font-size: 0.8em;
+  line-height: 1.5em;
+  margin: 0;
+}
+
+//  Document type label with small icon
+.doc-type-label {
+  display: block;
+  color: #999;
+  font-size: 0.9em;
+  &:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    font-weight: normal;
+    margin-right: 5px
+  }
+}
+
+//  Document type label icons
+//  A stampa
+.e01:before, .a02:before, .a01:before, .c01:before {
+  content: $fa-var-book;
+}
+//  Manoscritto, lett. grigia
+.f01:before, .b02:before, .b01:before, .d01:before {}
+//  Video
+.g06:before, .g05:before, .g01:before, .g08:before, .g07:before, .g03:before, .g02:before, .g04:before {
+  content: $fa-var-film;
+}
+//  Registrazioni musicali
+.j07:before, .j08:before, .j02:before, .j03:before, .j01:before, .j06:before, .j05:before, .j04:before {
+  content: $fa-var-music;
+}
+//  Registrazioni non musicali
+.i07:before, .i02:before, .i03:before, .i01:before, .i06:before, .i05:before, .i04:before {
+  content: $fa-var-volume-up;
+}
+//  Grafica
+.k11:before, .k01:before, .k02:before, .k10:before, .k07:before, .k08:before, .k09:before,
+.k05:before, .k03:before, .k04:before, .k06:before {
+  content: $fa-var-picture-o;
+}
+//  Risorse elettroniche
+.l01:before, .l02:before {
+  content: $fa-var-link;
+}
+//  Manufatti
+.r34:before, .r10:before, .r18:before, .r11:before, .r22:before, .r35:before, .r23:before,
+.r04:before, .r05:before, .r17:before, .r16:before, .r30:before, .r02:before, .r01:before,
+.r27:before, .r31:before, .r29:before, .r06:before, .r33:before, .r12:before, .r19:before,
+.r20:before, .r28:before, .r25:before, .r26:before, .r08:before, .r32:before, .r24:before,
+.r21:before, .r03:before, .r09:before, .r13:before, .r14:before, .r15:before, .r07:before {
+  content: $fa-var-picture-o;
+}
+//  PiÃ¹ materiali
+.m01:before {
+  content: $fa-var-archive;
+}
+
+//  Label shown on extra-catalogue material
+.extra-warning {
+  background: none repeat scroll 0 0 #FFEC8B;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 6px;
+  padding: 3px 5px;
+}
+
+#libraryFilterForm input[type=submit] {
+  display: none;
+}
+
+@mixin listbox($pad: 0, $radius: 0.5em)
+{
+  display: inline-block;
+  padding: $pad;
+  border-left: 1px solid $border-color;
+
+  &:first-child{
+    border-left: none;
+  }
+}
+
+//  Cover styles and carousel fixes
+.cover {
+  display: inline-block;
+  max-width: $cover-width;
+  max-height: 1.5 * $cover-height;
+  width: $cover-width;
+  vertical-align: bottom;
+  white-space: normal;
+  img {
+    width :$cover-width;
+    max-width: $cover-width;
+    max-height: 1.5 * $cover-height;
+    margin: 0 auto;
+    vertical-align: bottom;
+  }
+  .covers-carousel & {
+    width: auto;
+    height: $cover-height;
+    max-height: $cover-height;
+    max-width: 2 * $cover-width;
+    img {
+      width: auto;
+      height: $cover-height;
+      max-height: $cover-height;
+      max-width: 2 * $cover-width;
+    }
+  }
+  position: relative;
+
+  @include border-right-radius(0.214em);
+  @include border-left-radius(0);
+
+  .cover-overlay{
+    position: absolute;
+    @include box-sizing(border-box);
+    height: 100%;
+    width: 100%;
+    border-right: 2px solid rgba(0,0,0,0.2);
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    border-top: 2px solid rgba(255,255,255,0.6);
+    @include border-right-radius(3px);
+    @include border-left-radius(0);
+  }
+  .cover-border {
+    position: absolute;
+    &.top,&.bottom{
+      height: 0;
+      width: 100%;
+      border-top: 2px solid;
+    }
+    &.left, &.right{
+      width: 0;
+      height: 100%;
+    }
+    &.right{
+      border-right: 2px solid rgba(0,0,0,0.2);
+      right: 0;
+    }
+    &.bottom{
+      border-color: rgba(0,0,0,0.2);
+      bottom: 0;
+    }
+    &.top{
+      border-color: rgba(255,255,255,0.6);
+      top: 0;
+
+    }
+    &.left{
+      width: 0;
+      height: 100%;
+      border-left: 3px solid rgba(0, 0, 0, 0.3);
+      border-right: 2px solid rgba(255, 255, 255, 0.6);
+      left: 0;
+    }
+
+  }
+  @include box-shadow(3px 3px 5px #999999);
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.showInOpac{
+  text-align: center;
+  font-size: 110%;
+  margin-top: 20px;
+}
+
+//  Possible interactions with a title: star rating, add to shelf
+//  Shown both on result page and manifestationPage (#rating-form is hidden on small viewports)
+.title-actions {
+  form {
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  .add-to-shelf {
+    margin-top: 10px;
+    text-align: left;
+    .dropdown-menu li {
+      font-size: 0.9em;
+      padding: 0;
+      @include clearfix;
+
+      line-height: 1.3 * $line-height-computed;
+
+      label.checkbox {
+        font-weight: normal;
+        display: block;
+        margin: 0;
+        padding: 0 10px;
+
+        max-width: 300px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        cursor: pointer;
+        input {
+          float: none;
+          margin: 0;
+          margin-right: 5px;
+        }
+      }
+      &.create-shelf-btn {
+        cursor: pointer;
+        .fa {
+          margin: 0 5px 0 10px;
+        }
+      }
+      &:hover, &:focus {
+        color: $dropdown-link-hover-color;
+        background: $dropdown-link-hover-bg;
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      > .btn {
+        // On small screen substitute book w/plus icon
+        > i:before {
+          content: $fa-var-plus;
+        }
+        > span {
+          display: none;
+        }
+
+      }
+    }
+  }
+  .modal {
+    text-align: left;
+  }
+}
+
+//  Private icon for shelves and saved-search dropdown
+.dropdown-menu sup {
+  top: -0.3em;
+  font-size: 80%;
+  .fa-lock {
+    color: #AAA;
+  }
+}
+
+//  Rating and comments numbers
+//  Shown both on resultPage and ManifestationPage (hidden on small viewports)
+.title-rates {
+  margin-top: 10px;
+  text-align: center;
+  > span {
+    position:relative;
+    display: inline-block;
+    font-weight: bold;
+    font-family: Arial;
+    margin:0 3px;
+    cursor: default;
+    *[class^="fa"]{
+      color:#ccc;
+    }
+    &.avg-rate:hover {
+      *[class^="fa"]{
+        color:#F8B200;
+      }
+    }
+    &.comments:hover {
+      *[class^="fa"]{
+        color:#5270C9;
+      }
+    }
+    &.geotag:hover {
+      *[class^="fa"]{
+        color:#FF0000;
+      }
+    }
+  }
+}
+
+//  Form validation: labels
+label.error {
+  color: $state-danger-text;
+}
+
+//  Advanced search page layout
+#advsearch_form {
+  $fieldsetBackgroundColor: #f8f8f8;
+  $operatorsBackgroundColor: #eaeaea;
+
+  .search-options {
+    margin-bottom: $line-height-computed;
+    button {
+      margin-top: $line-height-computed + 5px;
+    }
+  }
+
+  .boolean-op {
+    select {
+      display: inline-block;
+      width: auto;
+    }
+    label {
+      display: inline-block;
+      margin-right: 10px;
+      line-height: 29px;
+      vertical-align: top;
+    }
+  }
+
+  .advsearch_field_row{
+    position: relative;
+    margin-bottom: $line-height-computed;
+    select, input {
+      width: 100%;
+      //@include form-control();
+    }
+    @media (min-width: $screen-md-min) {
+      margin-bottom: inherit;
+    }
+    //  Fields row that are not the first in the fields group
+    + .advsearch_field_row{
+      .interfield_bool_label{
+        display: block;
+      }
+    }
+
+    * + .loadingFields{
+      display: none !important;
+    }
+
+    .loadingFields {
+      color: #666;
+      display: inherit;
+    }
+
+    .cdfInput{
+      box-sizing: border-box;
+      &.loading{
+        display: none;
+        + .loadingLabel {
+          display: inherit;
+        }
+      }
+      .disabled {
+        display: none;
+      }
+
+      select {
+        &.oneChoice {
+          color: rgb(127,127,127);
+        }
+      }
+    }
+
+    .loadingLabel{
+      display: none;
+    }
+  }
+  .advsearch_fieldset{
+    @media (min-width: $screen-md-min) {
+      background: $fieldsetBackgroundColor;
+      padding: 15px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      @include coolBorder(#ddd);
+    }
+    position: relative;
+    margin-bottom: $line-height-computed - 2px;
+    .advsearch_removefield_link{
+      display: none;
+    }
+    &.multiple-fields {
+      .advsearch_value_field {
+        padding-right: 30px;
+      }
+    }
+    &.multiple-fields, &.bool_not{
+      .advsearch_removefield_link{
+        display: block;
+      }
+    }
+    + .advsearch_fieldset {
+      .intergroup_bool_label {
+        display: block;
+      }
+    }
+    &.bool_not{
+      .interfield_bool_label{
+        display: block;
+        bottom: 0;
+        top: inherit;
+        .arc{
+          display: none;
+        }
+        p{
+          background-color: #ffd8d8;
+        }
+      }
+    }
+  }
+
+  .intergroup_bool_label {
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: $line-height-computed;
+
+    .operator {
+      font-size: 1em;
+      width: 100%;
+      height: 32px;
+    }
+
+    @media (min-width: $screen-md-min) {
+      top: -27px;
+      left: 0;
+      position: absolute;
+      .operator {
+        width: 60px;
+        @include coolBorder(#ddd);
+      }
+    }
+  }
+  $row-height: 74px;
+  $operator-height: 30px;
+  $operator-width: 45px;
+  $arc-border-size: 3px;
+  $arc-height: $row-height + $arc-border-size;
+  $arc-width: $arc-height * 0.6;
+  .operator {
+    color: #666;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 0.8em;
+    background-color: $operatorsBackgroundColor;
+    border-radius: 4px;
+    width: $operator-width;
+    height: $operator-height;
+    line-height: $operator-height;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+  }
+
+  .interfield_bool_label{
+    display: none;
+    width: 100%;
+    position: absolute;
+    top: -$arc-height/2 + 4px;
+
+    .operator {
+      position: absolute;
+      top: ($arc-height - $operator-height)/2;
+      right: $arc-width - $operator-width/2;
+    }
+
+    .arc{
+      @include box-sizing(border-box);
+      position: absolute;
+      right: 0;
+      display: block;
+      width: $arc-width;
+      height: $arc-height;
+      border: $arc-border-size solid $operatorsBackgroundColor;
+      border-right: none;
+      @include border-right-radius(0);
+      @include border-left-radius($arc-height/2);
+    }
+    //  Not operators are not binary operators...
+  }
+
+  #customFieldSets {
+    margin-top: 20px;
+  }
+
+  .advsearch_removegrp_link {
+    &:hover{
+      color: $state-danger-text;
+      text-decoration: none;
+    }
+  }
+
+  .advsearch_removefield_column {
+    text-align: left;
+    padding: 0;
+  }
+
+  .advsearch_removefield_link{
+    position: relative;
+    color: #ccc;
+    font-size: 1.5em;
+    top: 29px;
+    &:hover{
+      color: $state-danger-text;
+      text-decoration: none;
+    }
+  }
+
+  .type-button{
+    text-align: center;
+  }
+
+  #advsearch_add_group {
+    display: inline-block;
+  }
+
+  .typeahead.dropdown-menu::after {
+    color: #666;
+    content: "Suggerimenti ordinati per frequenza";
+    font-style: italic;
+    display: block;
+    font-size: 0.8em;
+    padding: 3px 20px;
+  }
+}
+
+// Typeahead styles
+.twitter-typeahead {
+  display: block !important;
+}
+
+.tt-dropdown-menu {
+  min-width: 160px;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: $dropdown-bg;
+  border: 1px solid #ccc;
+  border: 1px solid $dropdown-border;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  border-radius: 6px;
+  @include box-shadow(0 5px 10px rgba(0,0,0,.2));
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+.tt-suggestion, .autocomplete-footer {
+  display: block;
+  padding: 3px 20px;
+}
+
+.autocomplete-footer {
+  font-size: 0.8em;
+  color: $text-muted;
+}
+
+.tt-suggestion.tt-is-under-cursor {
+  color: $dropdown-link-hover-color;
+  #gradient > {
+    //@include vertical($dropdown-link-hover-bg, darken($dropdown-link-hover-bg, 5%));
+  }
+}
+
+.tt-suggestion.tt-is-under-cursor a {
+  color: $dropdown-bg;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+
+form#add_to_shelf{
+  clear: both;
+  margin-bottom: 5px;
+}
+
+//  Manifestation Page layout and styles
+.pagetype-ManifestationPage {
+  .doc-type-label {
+    margin-bottom: 10px;
+  }
+  .main-author, .main-title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  #accordion {
+    padding-top: 1em;
+  }
+
+  // On small screen make the accordion full width
+  @media (max-width: $screen-xs-max){
+    #accordion {
+      clear: both;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  // Style the accordion
+  .panel-default {
+    overflow: visible;  // Needed to use images :hover effect
+    border: none;
+    @include box-shadow(none);
+  }
+
+  .panel-group .panel-heading + .panel-collapse .panel-body {
+    border-top: none;
+  }
+
+  .panel-heading {
+    padding: 0;
+    cursor: pointer;
+
+    @media (min-width: $screen-sm-min){
+      border-radius: 4px;
+    }
+    .panel-title {
+      font-size: 18px;
+      text-shadow: 0 1px 0px #FFF;
+    }
+    > .panel-title > a {
+      letter-spacing: 1px;
+      padding: 10px 15px;
+      display: block !important;
+      @include fa-icon;
+      &:before {
+        width: 1em;
+        text-decoration: none;
+        content: $fa-var-caret-down;
+      }
+      &.collapsed:before{
+        content: $fa-var-caret-right;
+      }
+      &:hover, &:focus, &:active {
+        text-decoration: none
+      }
+    }
+  }
+
+  // Only on small screen
+  @media (max-width: $screen-xs-max) {
+
+    .main-author {
+      font-size: 1em;
+    }
+    .main-title {
+      font-size: 1.2em;
+    }
+
+    .panel-group .panel {
+      border-radius: 0
+    }
+
+    #issues {
+      ul.issuesYears {
+        padding-left: 1em;
+        ul.issues {
+          padding-left: 1em;
+        }
+        .issueItemsListContainer {
+          margin-left: -30px;
+        }
+      }
+    }
+  }
+
+  //  Some space under user's reviews
+  .ForumLastPosts {
+    margin-top: 2em
+  }
+
+  //  User shelves list
+  .in_shelves {
+    dd {
+      @include clearfix;
+    }
+  }
+
+  .attachments {
+    li {
+      @include fa-icon;
+      &:before {
+        font-size: 1.1em;
+        margin-right: 3px;
+        content: $fa-var-file;
+      }
+    }
+    li:after {
+      font-size: 0.8em;
+      margin-left: 5px;
+    }
+    li[data-mimetype="application/pdf"]:after {
+      content: "[pdf]"
+    }
+    li[data-mimetype="application/msword"]:after {
+      content: "[doc]"
+    }
+    li[data-mimetype="application/powerpoint"]:after {
+      content: "[ppt]"
+    }
+    li[data-mimetype*="excel"]:after {
+      content: "[xls]"
+    }
+    li[data-mimetype^="video/"] {
+      &:before {
+        content: $fa-var-film
+      }
+    }
+  }
+  &>b {
+    background: #FFEC8B;
+    padding: 3px 5px;
+    margin-bottom:3px;
+    display: inline-block;
+  }
+  //  Prevent attachments clipping
+  .tab-content {
+    overflow: visible;
+  }
+  //  Spacing details content and paragraph
+  .detail {
+    p, .titlesWrapper {
+      margin-bottom: 0.25em;
+    }
+    p > strong {
+      margin-right: 0.25em;
+    }
+    .titlesWrapper .show-hide {
+      margin-left: 0.5em;
+      font-size: 0.8em;
+    }
+    .sublev {
+      list-style: inside;
+      margin-left: 1em;
+      display: none
+    }
+    .notes ul {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .notes, .authorities, .external_resources, .attachments, .cdf-details {
+      border-top: 1px solid $border-color;
+      padding: 10px 0 0 0;
+      margin: 10px 0 0 0;
+    }
+    .authorities, .external_resources {
+      ul {
+        list-style-position: inside;
+        list-style-type: disc;
+        display: inline-block;
+      }
+    }
+    .authority{
+      //padding-right: 5px;
+      &:before {
+        content: "\2022";
+      }
+      a {
+        margin-left: 5px;
+      }
+    }
+    strong + .authority{
+      &:before {
+        content: "";
+      }
+      a {
+        margin-left:0;
+      }
+    }
+    ul.issuesYears{
+      list-style-type: disc;
+      list-style-position: outside;
+
+      .showYearLink.expanded{
+        font-weight: bold;
+        font-size: 1.3em;
+      }
+
+      ul.issues{
+        margin: 0.5em 2em;
+        list-style-type: circle;
+        list-style-position: outside;
+        .titles{
+          margin-left: 10px;
+          margin-top: 5px;
+        }
+      }
+    }
+    .issueItemsListContainer {
+      margin: 15px 0;
+    }
+  }
+  .works .work {
+    display: inline;
+  }
+}
+
+.viewshelves{
+  .shelf-action-links {
+    margin-top: 1em;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+
+    li{
+      margin-left: 0;
+      label {
+        display: block;
+      }
+
+      *[data-isloading] input {
+        display: none;
+      }
+    }
+  }
+}
+
+//  MLOL panel
+#mlol {
+  .logo {
+    margin-right: 50px;
+    margin-bottom: 10px;
+  }
+}
+
+//  MLOL iframe in search pages
+.mlol-iframe {
+  width: 100%;
+  min-height: 600px;
+  border: none;
+}
+
+//  Sharing panel on ManifestationPage
+#share {
+  .embed-code {
+    display: none;
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid #ddd;
+  }
+
+  form {
+    margin: 0;
+    float: left;
+    padding-left: 20px;
+    label:nth-of-type(2) {
+      margin-top: 10px
+    }
+    .col-md-6 {
+      margin-bottom: 10px;
+    }
+  }
+  textarea {
+    height: 9em;
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    cursor: inherit;
+    @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+      width: 45%;
+    }
+  }
+}
+
+//  Preview embeddable badge on sharing panel on ManifestationPage
+#badge-preview {
+  .modal-body {
+    padding: 0 15px;
+  }
+  iframe {
+    min-height: 340px;
+    position: relative;
+    width: 100%;
+  }
+}
+
+//  Style the select on reserve modal
+.reserve-dialog {
+  select{
+    width: 100%;
+  }
+}
+
+.images-attachments {
+  clear: both;
+  strong {
+    margin-bottom: 0.5em;
+    display: block;
+  }
+}
+
+body #cboxLoadedContent{margin-bottom:38px;}
+
+//  On ManifestationPage images attachments are shown as horizontal list
+.manifestation-images {
+  $scale: 3;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  li {
+    border-radius: 3px;
+    @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.4));
+    display: inline-block;
+    position: relative;
+    margin: 0 0.5em 0 0;
+    overflow: hidden;
+    height: 4em;
+    @include transition(0.1s);
+    &:hover {
+      @include scale($scale, $scale);
+      .attach-note {
+        display: block;
+      }
+      z-index: 100;
+    }
+    img {
+      height: 4em;
+    }
+    .attach-note {
+      display: none;
+      @include box-sizing(border-box);
+      background-color: rgba(0,0,0,0.5);
+      color: White;
+      padding: 0.5em 0.7em;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      font-size: 0.8em / $scale;
+      line-height: 1.2em / $scale;
+    }
+  }
+}
+
+//  Notes for an item inside items list
+.item-notes{
+  cursor: pointer;
+  position: relative;
+  float:right;
+  i {
+    color: #999;
+  }
+  ul {
+    display: none;
+  }
+}
+
+//  Fake covers created when there's no cover for the manifestation
+.fake-cover {
+  line-height: 1.5em;
+  //#gradient > @include vertical( #893317,#56200E);
+  border-left: 0.22em solid #333;
+  @include border-right-radius(0.147em);
+  @include border-left-radius(0);
+  height: $cover-height;
+  width: $cover-width;
+  overflow: hidden;
+  color: White;
+  text-shadow: 1px 1px 1px Black;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+
+  .no-fake-covers & {
+    display: none !important;
+  }
+  .inner{
+    position: relative;
+    border-left: 2px solid #A04D3E;
+    height: 100%;
+    background-image: image_url("images/coverTexture.png");
+  }
+
+  .title, .author {
+    display: block;
+    position: absolute;
+    left: -1px;
+    text-align: center;
+    padding:  0 6%;
+    width: 100%;
+  }
+
+  .title {
+    top: 1.54em;
+    font-weight: bold;
+    font-size: 1em;
+    line-height: 1.2em;
+  }
+
+  .author {
+    bottom: 1.245em;
+    font-size: 0.8em;
+    line-height: 1em;
+  }
+}
+
+//  Each fake cover has random color and background
+.fake-cover{
+  &.color_2 {
+    //#gradient > @include vertical( #893317,#56200E);
+    .inner {
+      border-color: #A04D3E;
+      background-image: image_url("images/coverTexture.png");
+    }
+  }
+  &.color_3 {
+    //#gradient > @include vertical( #309362,#1F6040);
+    .inner {
+      border-color: #399B68;
+      background-image: image_url("images/coverTextureMacchie.png");
+    }
+  }
+  &.color_4 {
+    //#gradient > @include vertical(#A93BD5,#441856);
+    .inner {
+      border-color: #9E70B2;
+      background-image: image_url("images/coverTexture.png");
+    }
+  }
+  &.color_5 {
+    //#gradient > @include vertical(#D6A204,#A37B03);
+    .inner {
+      border-color: #DBC37D;
+      background-image: image_url("images/coverTexture.png");
+    }
+  }
+  &.color_6 {
+    //#gradient > @include vertical( #962242,#63162C);
+    .inner {
+      background-image: image_url("images/coverTextureVert.png");
+      border-color: #96405B;
+    }
+  }
+  &.color_7 {
+    //#gradient > @include vertical( #7F7F7F,#333333);
+    .inner {
+      border-color: #666;
+      background-image: image_url("images/coverTextureVert.png");
+    }
+  }
+  &.color_8 {
+    //#gradient > @include vertical( #79964B,#506331);
+    .inner {
+      border-color: #879B68;
+      background-image: image_url("images/coverTextureMacchie.png");
+    }
+  }
+}
+
+/*
+ *  Manifestation badge - to be embedded on other websites
+*/
+.manifestation-badge-body {
+  padding: 15px;
+  background: transparent;
+  @include box-sizing(border-box);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  .manifestation-badge {
+    @include coolBorder();
+    border-radius: 5px;
+    background: #FFFFFF;
+    padding: 20px 20px 11px;
+    @include box-sizing(border-box);
+    height: 100%;
+    width: 100%;
+    .result-wrapper {
+      overflow: hidden;
+    }
+    .cover-wrapper {
+      &.coversize-normal {
+        font-size: 1em;
+      }
+      &.coversize-small {
+        font-size: 0.8em;
+      }
+      &.coversize-large {
+        font-size: 1.2em;
+      }
+      /*            .btn {
+                      margin-top: 15px;
+                  }*/
+    }
+    .coversize-small + .result-body {
+      padding-left: 45px;
+    }
+    .coversize-normal + .result-body {
+      padding-left: 70px;
+    }
+    .coversize-large + .result-body {
+      padding-left: 90px;
+    }
+    footer {
+      margin-top:10px;
+      border-top: 1px solid #eee;
+      font-size: 0.8em;
+      color: #eee;
+      margin-bottom: 0;
+      padding-top:10px;
+      > img {
+        max-width: 24px;
+        max-height: 24px;
+      }
+      a {
+        color: #333;
+      }
+    }
+  }
+}

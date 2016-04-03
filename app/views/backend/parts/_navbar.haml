@@ -1,0 +1,10 @@
+%ul.nav.navbar-top-links.navbar-right
+  %li.dropdown
+    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+      %i.fa.fa-user.fa-fw
+      %i.fa.fa-caret-down
+    %ul.dropdown-menu.dropdown-user
+      %li
+        = link_to destroy_user_session_path(user_session), method: :delete do
+          %i.fa.fa-sign-out.fa-fw
+          Logout

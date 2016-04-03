@@ -1,0 +1,12 @@
+.btn {
+  &.panel-btn {
+    padding-left: 30px;
+    padding-right: 30px;
+    transform: translate(17px, -17px);
+    margin: 10px;
+  }
+}
+
+.alert {
+  transform: translateY(30px);
+}

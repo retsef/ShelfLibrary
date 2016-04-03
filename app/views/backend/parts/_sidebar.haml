@@ -1,0 +1,27 @@
+.navbar-default.sidebar{:role => "navigation"}
+  .sidebar-nav.navbar-collapse
+    %ul#side-menu.nav
+      %li{class: ('active' if params[controller] == 'dashboard')}
+        %a{href: backend_root_path}
+          %i.fa.fa-dashboard.fa-fw
+          Dashboard
+      %li{class: ('active' if params[controller] == 'books')}
+        %a{href: backend_books_path}
+          %i.fa.fa-edit.fa-fw
+          Books
+      %li{class: ('active' if params[controller] == 'collections')}
+        %a{href: backend_collections_path}
+          %i.fa.fa-edit.fa-fw
+          Collections
+      %li{class: ('active' if params[controller] == 'categories')}
+        %a{href: backend_categories_path}
+          %i.fa.fa-edit.fa-fw
+          Categories
+      %li{class: ('active' if params[controller] == 'authors')}
+        %a{href: backend_authors_path}
+          %i.fa.fa-edit.fa-fw
+          Authors
+      %li{class: ('active' if params[controller] == 'publishers')}
+        %a{href: backend_publishers_path}
+          %i.fa.fa-edit.fa-fw
+          Publishers

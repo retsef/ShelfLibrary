@@ -1,0 +1,36 @@
+.row
+  .col-lg-12
+    %h1.page-header
+      Publishers
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        Publishers
+        .pull-right
+          = link_to 'New', new_backend_publisher_path, class: 'btn btn-primary panel-btn'
+      .panel-body
+        .dataTable_wrapper
+          %table#dataTables-example.table.table-striped.table-bordered.table-hover
+            %thead
+              %tr
+                %th ID
+                %th Name
+                %th
+            %tbody
+              - @publishers.each do |publisher|
+                %tr
+                  %td
+                    = author.id
+                  %td
+                    = author.name
+                  %td
+                    = link_to 'Edit', edit_backend_publisher_path(publisher), class: 'btn btn-primary'
+                    = link_to 'Delete', backend_publisher_path(publisher), confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger'
+
+:javascript
+  $(document).ready(function() {
+      $('#dataTables-example').DataTable({
+          responsive: true
+      });
+  });

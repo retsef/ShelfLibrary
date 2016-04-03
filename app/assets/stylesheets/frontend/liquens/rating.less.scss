@@ -1,0 +1,93 @@
+/**
+ * Rules for rating plugin. Note: .input-checked class is used in the same cases of :checked
+ * pseudoselector. This because IE <= 8 does not support :checked selectors.
+**/
+#rating-form {
+  $star-width: 1.2em;
+  $star-cancel-font-size: 0.8em;
+  $star-cancel-height: $line-height-computed;
+  text-align: center;
+  position: relative;
+
+  @media (min-width: $screen-sm-min) {
+    display: inherit;
+    font-size: 0.9em;
+  }
+  @media (min-width: $screen-lg-min) {
+    font-size: 1em;
+  }
+
+  .star-cancel {
+    + input {
+      // I've splitted the following in two rules because ie8 had problems with this selectors
+      // and comma selector
+      &:checked ~ .stars label {
+        color: $star-color-empty;
+      }
+      &.input-checked ~ .stars label {
+        color: $star-color-empty;
+      }
+      display: none;
+    }
+    &:hover ~ .stars label { color: $star-color-empty !important; }
+
+    position: absolute;
+    bottom: -$star-cancel-height;
+    width: 100%;
+    left: 0;
+    display: none;
+
+    font-weight: normal;
+    font-size: $star-cancel-font-size;
+    line-height: $star-cancel-height;
+    color: #999;
+
+    cursor: pointer;
+
+    &:hover {
+      color: $brand-danger;
+    }
+  }
+
+  .stars {
+    text-align: left;
+    display: inline-block;
+    font-size: 1.2em;
+
+    label.star {
+      color: $star-color-full;
+      text-indent: -2000em;
+      display: inline-block;
+      width: 1.2em;
+      margin: 0;
+      cursor: pointer;
+    }
+    label.star:before {
+      font-family: FontAwesome;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content: $fa-var-star;
+      position: relative;
+      text-align: left;
+      left: 2000em + ($star-width - 1em)/2;
+    }
+    input.input-checked ~ label {
+      color: $star-color-empty;
+    }
+    input:checked ~ label {
+      color: $star-color-empty;
+    }
+    input {
+      display: none;
+    }
+
+    &:hover {
+      label { color: $star-color-active !important; }
+      label:hover ~ label { color: $star-color-empty !important; }
+    }
+  }
+
+  &:hover .star-cancel {
+    display: block;
+  }
+}

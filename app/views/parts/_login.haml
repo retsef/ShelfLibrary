@@ -1,0 +1,30 @@
+.buttons-row
+  %a.btn.btn-primary{data: {'toggle': 'modal', 'target': '#loginModal'}}
+    Login
+    %i.fa.fa-sign-in
+#loginModal.modal.fade.in{role: 'dialog'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{data: {'dismiss': 'modal'}}
+          x
+        %h4.modal-title
+          Login
+      .modal-body
+        = simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {role: 'form', multipart: true, class: 'form-vertical'}) do |f|
+          %fieldset
+            = f.input :email, wrapper: :vertical_input_group, label: false do
+              %span.input-group-addon
+                %i.fa.fa-user
+              = f.input_field :email, class: 'form-control', placeholder: 'Username'
+            = f.input :password, wrapper: :vertical_input_group, label: false do
+              %span.input-group-addon
+                %i.fa.fa-key
+              = f.input_field :password, class: 'form-control', placeholder: 'Password'
+            %a.forgot{href: '#'}
+              Hai dimenticato la password?
+            .checkbox
+              %label
+                = f.check_box :remember_me
+                Ricordami
+            = f.submit 'Login', class: 'btn btn-primary pull-right'

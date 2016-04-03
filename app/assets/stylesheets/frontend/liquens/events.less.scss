@@ -1,0 +1,170 @@
+/* Events */
+
+// Upcoming news event list
+// one column used in homepage and library page
+.calendar-date {
+  $borderRadius: 5px;
+  width: 55px;
+  display: block;
+  float: left;
+  text-align: center;
+  margin: 5px 10px 5px 0;
+  @include coolBorder();
+  border-radius: $borderRadius;
+  overflow: hidden;
+
+  font-size:0.8em;
+  font-style:normal;
+  line-height:1.3em;
+
+  min-height: 50px;
+
+  .day {
+    $height: 15px;
+    @include border-top-radius($borderRadius - 1);
+    @include border-bottom-radius(0);
+    background: rgba(209, 49, 49, 0.8);
+    color: #fff;
+    font-weight: bold;
+    height: $height;
+    line-height: $height;
+  }
+  .num {
+    font-family: Arial, sans-serif;
+    font-size: 2em;
+    color: #555;
+    font-weight: bold;
+    padding-top: 6px;
+  }
+  .month {
+    font-size: 0.9em;
+    padding: 3px 0;
+  }
+}
+
+//  CalendarEventPage
+.pagetype-EventsPage {
+
+  button[data-dng-target=".facet-list"] {
+    font-variant: small-caps;
+  }
+
+  .facet-list {
+    display: none;
+    @media (min-width: $screen-md-min) {
+      display: inherit;
+    }
+  }
+}
+
+//  Single event inside library page
+.pagetype-CalendarEvent {
+  .eventTitle {
+    .fa {
+      color: $brand-danger;
+    }
+  }
+  .eventDetails{
+
+    font-size: 1em;
+    dt {
+      float: left;
+      font-weight: normal;
+    }
+    dt:after {
+      content: ":";
+    }
+    dd {
+      padding-left: 100px;
+      margin:  0;
+    }
+  }
+}
+
+#eventsSection {
+  article {
+    border-top: 1px solid $border-color;
+    padding: ($line-height-computed - 1px) 0 $line-height-computed 0;
+    position: relative;
+    clear: both;
+    header{
+      h4{
+        //font-size: 1.1em;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 0;
+      }
+      .library{
+        font-size: 1.1em;
+        font-style: italic;
+        font-family: Georgia, "Times New Roman", serif;
+        margin: 0;
+      }
+    }
+    footer {
+      font-size: 0.9em;
+      color: #666;
+      p {
+        line-height: inherit;
+        margin: 0;
+        strong {
+          margin-right: 5px;
+          color: #333;
+          text-transform: uppercase;
+        }
+      }
+    }
+    .eventDetails{
+      text-align: right;
+      margin: 0;
+    }
+    .calendar-date{
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 16px;
+    }
+
+    @media (min-width: $screen-xs-min) {
+      padding-left: 75px;
+      .calendar-date {
+        display: block;
+      }
+    }
+  }
+
+  .notFound {
+    font-size: 1.1em;
+    background:
+            #EEE;
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+
+  .events-pagination {
+    font-size: 0.8em;
+    line-height: 1.5 * $line-height-computed;
+  }
+}
+
+#eventFilters {
+  @media (min-width: $grid-float-breakpoint) {
+    padding-right: 15px;
+  }
+  .form-group{
+
+    + .form-group {
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    > label {
+      font-weight: bold;
+      text-transform: uppercase;
+      display: block;
+    }
+  }
+
+  .btn-toolbar {
+    margin-top: 15px
+  }
+}

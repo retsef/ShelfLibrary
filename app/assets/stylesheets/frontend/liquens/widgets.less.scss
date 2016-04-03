@@ -1,0 +1,264 @@
+/*
+	Widgets styles used by DNG
+*/
+
+
+// DEFAULT STYLE FOR WIDGET HOLDER
+// --------------------------------
+
+.widget{position: relative;}
+
+.widget .cover_holder{display: block;float:left;margin:0 5px 0 0}
+
+.WidgetHolder {
+  .show-all {
+    font-size: 0.9em;
+    &:after {
+      margin-left:3px;
+      content: "â†’";
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .meta {
+    font-size: 0.8em;
+    a {
+      color: $text-color;
+    }
+  }
+}
+
+// WIDGET SPECIFIC STYLES
+// --------------------------------
+
+// SHELF WIDGET HACK FOR HOMEPAGE
+#teaser .shelf-widget {
+  margin-top:0;
+  h3 {
+    margin-top: 0;
+  }
+}
+
+// FORUM LAST POSTS WIDGET
+.ForumLastPosts {
+  width: 100%;
+  margin-left: 0;
+  article {
+    margin-bottom: 10px;
+    background: none;
+    .avatar {
+      background: #fff;
+      display: block;
+      border: 0;
+      padding: 0;
+      float: left;
+    }
+
+    .post {
+      border-radius: 4px;
+      position: relative;
+      display: block;
+      background: #F5F5F5;
+      margin: 0 0 0 $avatar_size_small + 9;
+      min-height: 25px;
+      padding: 5px 10px;
+
+      &.avatar-medium {
+        min-height: 48px;
+        margin-left: $avatar_size_medium + 9;
+      }
+
+      &.avatar-large {
+        min-height: 75px;
+        margin-left: $avatar_size_large + 9;
+      }
+
+      .chat-bubble-arrow {
+        left: -9px;
+        border-right-style: none;
+      }
+
+      .meta {
+        span {
+          display: inline-block;
+          margin-right:10px;
+        }
+      }
+
+      strong a{
+        line-height: 1.2em;
+      }
+    }
+
+    .chat-bubble-arrow {
+      border-style: solid;
+      border-width: 10px;
+      height: 0;
+      width: 0;
+      position: absolute;
+      border-color: #F5F5F5 transparent transparent transparent;
+      z-index: 3;
+      top: 8px;
+    }
+
+    .chat-bubble-arrow + h4 {
+      margin-top: 0;
+    }
+
+    // Remove empty p when post start without title (ManifestationPage)
+    .chat-bubble-arrow + p:empty {
+      display: none;
+    }
+  }
+}
+
+// EVENTS WIDGET
+.EventsWidget {
+  article {
+    padding: 5px 0;
+    border-bottom: 1px solid $border-color;
+
+    .event_info {
+      display: block;
+      margin: 5px 5px 5px 67px;
+      strong {
+        margin: 0 0 1em;
+      }
+      h5 {
+        margin:0;
+      }
+      .library, .content {
+        display: block;
+        margin: 0;
+      }
+      .library {
+        font-style: italic;
+        font-family: "Georgia", "Times New Roman", serif;
+      }
+    }
+  }
+  footer {
+    font-size: 0.8em;
+    text-align: right;
+  }
+}
+
+// PAGE LIST WIDGET
+.PagesListWidget, .RssWidget {
+  .pagesList {
+    article {
+      border-top: 1px solid $border-color;
+      line-height: 1.5em;
+      padding: 0.75em 0;
+      &:first-child {
+        border-top: none;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      td img {
+        max-width: inherit;
+      }
+    }
+    header {
+      > h4 {
+        font-weight: bold;
+        margin: 0;
+        a {
+          display: block;
+        }
+      }
+      .meta {
+        color: #999;
+        a {
+          color: inherit;
+        }
+      }
+    }
+    &.fullExtract {
+      article > div.content {
+        h1 { font-size: 1.4em; font-weight: bold}
+        h2 { font-size: 1.2em; font-weight: bold}
+        h3 { font-size: 1em; font-weight: bold}
+        h4 { font-size: 1em; font-style: italic }
+        h5,h6,h7 { font-size: 1em}
+      }
+    }
+
+    a.showmore {
+      font-size: 0.8em;
+      text-align: right;
+      display: block;
+      > img {
+        display: none;
+        margin-right: 5px;
+        margin-bottom: -5px;
+      }
+      &.loading > img {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.gridwidget-row {
+  margin-bottom: $line-height-computed;
+}
+
+
+// MENU WIDGET
+.MenuWidget ul {
+
+  padding: 0;
+  margin-left: 25px;
+
+  .divider {
+    position: relative;
+    left: -15px;
+    list-style: none;
+    border-top: 1px solid $border-color;
+    margin: $line-height-computed/2 0;
+    > a {
+      display: none;
+    }
+  }
+  .header {
+    position: relative;
+    left: -15px;
+    list-style: none;
+    padding: 5px 0;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .divider + .header {
+    padding-top: 0;
+  }
+}
+
+
+//  SearchBox widget
+
+.WidgetHolder .search-box {
+  margin: 10px auto;
+  padding: 13px 15px;
+  background: #eee;
+  border-radius: 4px;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  form, fieldset {
+    margin-bottom: 0;
+  }
+
+  > img {
+    max-width: 140px;
+    padding-right: 10px;
+    float: left;
+    //.hidden-xs;
+  }
+}

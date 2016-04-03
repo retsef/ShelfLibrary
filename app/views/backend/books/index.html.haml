@@ -1,0 +1,49 @@
+.row
+  .col-lg-12
+    %h1.page-header
+      Books
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        Books
+        .pull-right
+          = link_to 'New', new_backend_book_path, class: 'btn btn-primary panel-btn'
+      .panel-body
+        .dataTable_wrapper
+          %table#dataTables-example.table.table-striped.table-bordered.table-hover
+            %thead
+              %tr
+                %th ID
+                %th Photo
+                %th Name
+                %th Collection
+                %th Author
+                %th
+            %tbody
+              - @books.each do |book|
+                %tr
+                  %td
+                    = book.id
+                  %td
+                    %img{src: "#{book.cover.url}", width: 80}
+                  %td
+                    = book.title
+                  %td
+                    - if book.collection.present?
+                      = book.collection.title
+                  %td
+                    - authors = ""
+                    - book.authors.each do |author|
+                      - authors += author!=book.authors.last ? "#{author.name}," : author.name
+                    = truncate(authors, lenght: 30)
+                  %td
+                    = link_to 'Edit', edit_backend_book_path(book), class: 'btn btn-primary'
+                    = link_to 'Delete', backend_book_path(book), confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger'
+
+:javascript
+  $(document).ready(function() {
+      $('#dataTables-example').DataTable({
+          responsive: true
+      });
+  });

@@ -1,0 +1,53 @@
+/*
+	Liquens main theme test
+    built with less on bootstrap for you
+*/
+
+// Bootstrap framework
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// Font-awesome awesomeness
+//@import "../../../bower_components/font-awesome/less/font-awesome.less";
+@import "font-awesome";
+
+// Liquens - Bootstrap - Font-Awesome variables
+@import "variables.less.scss";
+
+// Utilities and mixins
+@import "utilities.less.scss";
+@import "mixins.less.scss";
+@import "avatar.less.scss";
+
+//  Fixes and overrides to default Silverstripe and third party syles
+@import "fix.less.scss";
+
+//  Main layouts + pages: Statistics, Profile, UserDefinedForm, Registration
+@import "pages.less.scss";
+
+//  Offcanvas classes and layout for small devices
+@import "offcanvas.less.scss";
+
+//  Header and footer
+@import "header.less.scss";
+@import "footer.less.scss";
+
+//  Special pages and areas
+@import "events.less.scss";
+@import "catalog.less.scss";
+@import "mydiscovery.less.scss";
+@import "libraries.less.scss";
+@import "forum.less.scss";
+@import "widgets.less.scss";
+@import "rating.less.scss";
+
+
+//  Print specific styles
+@import "print.less.scss";
+
+// Specific content classes (used also inside CMS editor)
+@import "content.less.scss";
+
+// Footable css
+@import "../footable.core.css";
+

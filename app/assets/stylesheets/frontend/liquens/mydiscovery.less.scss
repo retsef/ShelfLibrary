@@ -1,0 +1,157 @@
+/*
+ * MyDiscovery Page
+ */
+#mydiscovery-nav {
+  @media (min-width: $screen-xs-min) and (max-width: $screen-md-min) {
+    //.nav-tabs;
+    > li {
+      > a {  }
+      > ul {
+        //.dropdown-menu;
+        > li > a {
+          &:hover,
+          &:focus {
+            text-decoration: none;
+            color: $dropdown-link-hover-color;
+            background-color: $dropdown-link-hover-bg;
+          }
+        }
+        .active a {
+          &,
+          &:hover,
+          &:focus {
+            color: $dropdown-link-active-color;
+            text-decoration: none;
+            outline: 0;
+            background-color: $dropdown-link-active-bg;
+          }
+        }
+      }
+      &.open > ul {
+        display: block;
+      }
+    }
+  }
+  @media (min-width: $screen-md-min) {
+    > li {
+      > a {
+        //.nav-header;
+        padding: $nav-link-padding;
+        .caret { display: none; }
+        background-color: inherit;
+        cursor: auto;
+      }
+      > ul {
+        //.nav;
+        //.nav-pills;
+        //.nav-stacked;
+      }
+    }
+  }
+}
+
+.editableListWrapper{
+  padding-bottom: 20px;
+}
+
+.mydiscovery-shelflist {
+  margin-left: 0;
+  padding-left: 0;
+  > li {
+    list-style: none;
+  }
+}
+
+#purchaseProposalForm{
+  background: none;
+  border: none;
+}
+
+.pagetype-MyDiscoveryPage main[role="main"]{
+  h2 {
+    font-size: 1.3em;
+  }
+
+  .tab-pane h3 {
+    button {
+      //.btn;
+      //.btn-default;
+      //.btn-xs;
+      margin-left: 10px;
+    }
+  }
+
+  #pendingLoansTable {
+    .ready-for-loan {
+      background: #CBF2BA;
+    }
+  }
+
+  #loans_active, #loans_closed {
+    h3 {
+      margin-bottom: 10px;
+      background-repeat: no-repeat;
+      background-position: left center;
+    }
+    * + h3 {
+      margin-top: 20px;
+    }
+    td {
+      &.expired {
+        color: #BE0000;
+        font-weight: bold;
+      }
+    }
+  }
+
+  #reservationsTable {
+    th:first-child {
+      width: 110px
+    }
+    th:nth-child(4) {
+      width: 100px
+    }
+    tbody {
+      td form {
+        display: inline-block;
+      }
+    }
+  }
+
+  .btn-toolbar {
+    margin: 5px 0;
+    > button {
+      //.btn;
+      //.btn-default;
+      //.btn-xs;
+    }
+  }
+}
+
+#bookmarks_shelves .btn-toolbar > button,
+#bookmarks_searches .btn-toolbar > button {
+  border: 0;
+  color: $gray-light;
+  background-color: transparent;
+  &:hover {
+    color: $link-color;
+  }
+}
+
+#settings_contacts ul {
+  padding: 0;
+  list-style: none;
+}
+
+/* Account data form */
+form.mydiscovery-account-settings {
+  .field {
+    //.form-group;
+  }
+  select, input[type="text"], input[type="password"], textarea {
+    //.form-control;
+  }
+  textarea {
+    height: auto;
+  }
+}

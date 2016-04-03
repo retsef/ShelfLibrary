@@ -1,0 +1,122 @@
+/* Fixes and overrides to default Silverstripe or third party components */
+
+
+// Fix FontAwesome inconsistence width
+// See https://github.com/FortAwesome/Font-Awesome/issues/2241
+.input-group-addon .fa {
+  width: (15em / 14);
+  text-align: center;
+}
+
+// Remove modals padding in small viewports
+.modal-dialog {
+  @media (max-width: $screen-xs-min) {
+    padding: 0;
+    .modal-content {
+      border-radius: 0;
+      border: 0;
+    }
+  }
+}
+
+// Dialog default buttons
+.modal-footer {
+  button[data-dismiss="modal"] {
+    //.btn;
+    //.btn-default;
+    @media (max-width: $screen-xs-max) {
+      //.btn-sm;
+    }
+  }
+  button.confirm-modal {
+    //.btn;
+    //.btn-primary;
+    @media (max-width: $screen-xs-max) {
+      //.btn-sm;
+    }
+  }
+}
+
+textarea {
+  color: $text-color;
+}
+
+form {
+  input {
+    &.valid{
+      border: 1px solid #88DD85 !important;
+    }
+  }
+  &.noborder {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+}
+
+// Fix label element for "Lucida Grande"
+.label {
+  padding-top: .4em;
+}
+
+// Style for the default buttons used by Silverstripe forms
+.action {
+  //.btn;
+  &[type="submit"]{
+    //.btn-primary;
+  }
+}
+
+// Restore nav-header components from Bootstrap 2.3.2
+.nav-header {
+  display: block;
+  font-size: $font-size-small;
+  font-weight: bold;
+  padding: 3px 20px;
+  color: $gray-light;
+  text-transform: uppercase;
+}
+.navbar-collapse .dropdown .dropdown-menu .nav-header {
+  @media (max-width: $grid-float-breakpoint-max) {
+    padding: 5px 15px;
+    color: #fff;
+  }
+}
+
+//IE Placeholder plugin
+input, select {
+  .placeholder{
+    color: $input-color-placeholder;
+  }
+}
+
+// Footables plugin
+table.footable tfoot {
+  text-align: center;
+}
+
+.footable-filterable-header {
+  .footable-filter {
+    input {
+      //.form-control;
+      margin-top: $line-height-computed;
+      margin-bottom: ($line-height-computed / 2);
+    }
+  }
+}
+
+body > .sr-only:focus {
+  z-index: 1000;
+  clip: auto;
+  display: inline-block;
+  width: 140px;
+  height: 26px;
+  text-align: center;
+  background: #FFDEAD;
+  color: #333;
+  padding-top: 3px;
+  margin-left: 10px;
+  @include transition(all 0.1s ease-in);
+  @include translate(0, 10px);
+}
+

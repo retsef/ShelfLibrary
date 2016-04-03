@@ -1,0 +1,12 @@
+%header{role: 'banner'}
+  .container
+    #standardHeader.mainHeader
+      %a.logo.hidden-xs{href: root_path}
+        %img{src: image_path('Hummingbird.png')}
+      .siteTitle
+        %h1
+          ShelfLibrary
+        = render 'parts/search'
+      %ul.nav.nav-pills.nav-stacked
+    = render 'parts/login'
+    = render 'parts/navigation'

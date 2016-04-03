@@ -1,0 +1,125 @@
+/* Avatar */
+@mixin avatar_overlay($fontsize, $height, $bottom: 5px)
+{
+  font-size: $fontsize;
+  height: $height;
+  line-height: $height;
+  left: -$fontsize / 2;
+  .tail {
+    right: -$height / 2;
+    border-width: $height / 2 $height / 2 $height / 2 0;
+  }
+  .back {
+    border-width: 0 0 $fontsize / 2 $fontsize / 2;
+    top: -$fontsize / 2;
+  }
+  bottom: $bottom;
+}
+
+.avatar {
+  position: relative;
+
+  img {
+    border-radius: 4px;
+  }
+
+  &.mini {
+    width: $avatar_size_mini;
+    height: $avatar_size_mini;
+    img{
+      width: $avatar_size_mini;
+      height: $avatar_size_mini;
+    }
+    .overlay {
+      @include avatar_overlay(4.5px, 4px, 1px);
+    }
+
+  }
+
+  &.small{
+    width: $avatar_size_small;
+    height: $avatar_size_small;
+    img{
+      width: $avatar_size_small;
+      height: $avatar_size_small;
+    }
+    .overlay {
+      @include avatar_overlay(8px, 10px, 3px);
+    }
+  }
+
+  &.medium {
+    width: $avatar_size_medium;
+    height: $avatar_size_medium;
+    img{
+      width: $avatar_size_medium;
+      height: $avatar_size_medium;
+    }
+    .overlay {
+      @include avatar_overlay(10px, 12px);
+    }
+  }
+
+  &.large {
+    width: $avatar_size_large;
+    height: $avatar_size_large;
+    img{
+      width: $avatar_size_large;
+      height: $avatar_size_large;
+      border-radius: 5px;
+    }
+    .overlay {
+      @include avatar_overlay(14px, 20px, 10px);
+    }
+  }
+
+  .overlay {
+    padding: 0 0.4em;
+    color: White;
+    position: absolute;
+    display: block;
+    background-color: rgba($avatar_ribbon_color, .7);
+    bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+
+    .back {
+
+      border-style: solid;
+      border-color: transparent transparent rgba(167, 16, 16, 0.77) transparent;
+      color: Black;
+      position: absolute;
+
+      left: 0;
+      width: 0px;
+      hieght: 0px;
+    }
+
+    .tail {
+      border-color: rgba($avatar_ribbon_color, .7) transparent rgba($avatar_ribbon_color, .7) rgba($avatar_ribbon_color, .7);
+      border-style: solid;
+      position: absolute;
+      top: 0px;
+    }
+  }
+}
+
+/**
+ *  Avatar list
+*/
+.thumb-list {
+  display: block;
+  margin:10px 0 0 2px;
+  list-style: none;
+  li {
+    display: inline;
+    padding:0 1px;
+    background-image:none;
+    text-align: left;
+    margin:0;
+    .avatar {
+      width:32px;
+      border:1px solid #999999
+    }
+  }
+}

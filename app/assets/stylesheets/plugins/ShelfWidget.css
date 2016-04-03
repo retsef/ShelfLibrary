@@ -1,0 +1,243 @@
+/**
+ * Discovery New Generation (DNG) 3 - SearchBox widget
+ *
+ * @creator       Giulio Bonanome - giulio@comperio.it
+ * @file          ShelfWidget.css
+ * @description   define styles for shelf widgets
+ * @-yaml-minver  3.2
+ *
+*/
+
+/* Taken from covers-carousel */
+.carousel-mask {
+    width: 100%;
+    overflow: hidden;
+    padding: 2px 0;
+    position: relative;
+}
+
+.touch .carousel-mask {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.touch .carousel-mask .carousel-action,
+.touch .carousel-mask .carousel-right-shadow {
+    display: none;
+}
+
+.carousel-items {
+    white-space: nowrap;
+    position: relative;
+    left: 0px;
+}
+.item {
+    display: inline-block;
+}
+/** END **/
+
+.carousel-items {
+    padding: 0;
+    transition-property: -webkit-transform, -mz-transform, -o-transform, -ms-transform, transform, left;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+}
+
+.covers-carousel {
+    width: 100%;
+    padding: 1em 2em;
+    font-size: 1.1em;
+}
+
+@media(max-width: 720px) {
+    .covers-carousel{
+        font-size: 1em;
+    }
+}
+
+@media(max-width: 450px) {
+    .covers-carousel{
+        font-size: 0.8em;
+    }
+}
+
+.covers-carousel .item {
+    margin-right: 0.7em;
+}
+
+/* Horizontal carousel buttons */
+.covers-carousel .carousel-action {
+    font-weight: 100;
+    height: 44px;
+    width: 3.6em;
+    left: -1.4em;
+    position: absolute;
+    top: 5em;
+    opacity: 0.9;
+    background: White;
+    color: #6A6A6A;
+    text-align: right;
+    border: none;
+    outline: none;
+    z-index: 100;
+}
+
+.covers-carousel .carousel-right-shadow {
+    position: absolute;
+    height: 100%;
+    width: 1em;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), White);
+    top: 0;
+    right: 0;
+    z-index: 50;
+}
+
+.covers-carousel .carousel-action i {
+    font-size: 1.6em;
+    vertical-align: middle;
+}
+
+.covers-carousel .carousel-action.prev {
+    border-top-right-radius: 1.4em;
+    border-bottom-right-radius: 1.4em;
+}
+
+.covers-carousel .carousel-action.next {
+    border-top-left-radius: 1.4em;
+    border-bottom-left-radius: 1.4em;
+    right: -1.08em;;
+    left: auto;
+    text-align: left;
+}
+
+.covers-carousel .carousel-action.prev i {
+    margin-right: 7px;
+}
+
+.covers-carousel .carousel-action.next i {
+    margin-left: 7px;
+}
+
+/*.rs-carousel a, .rs-carousel a:link, .rs-carousel a:visited, .rs-carousel a:hover, .rs-carousel a:active, .rs-carousel a:focus{
+    text-decoration: none;
+}*/
+
+.covers-carousel .carousel-action:hover{
+    background-color: #fff;
+    color: #333;
+    opacity: 1;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.covers-carousel .carousel-action.prev:hover {
+    -webkit-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    transform: translateX(10px);
+}
+
+.covers-carousel .carousel-action.next:hover {
+    -webkit-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    transform: translateX(-10px);
+}
+
+.shelf-widget{
+    position: relative;
+    display: block;
+}
+
+/* simple list template */
+.simple-list strong{
+    display: block;
+}
+.simple-list span{
+    color: #666;
+}
+
+.simple-list.num ol{
+    list-style: none;
+    margin:0;
+    margin-top: 20px;
+    padding:0;
+}
+
+.simple-list.num ol li{
+    display: block;
+    clear:both;
+    margin-bottom: 10px;
+}
+
+.simple-list.num .score {
+    font-size: 3.1em;
+    color: #ddd;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    float:left;
+    width: 38px;
+    text-align: center;
+    letter-spacing:-6px;
+    line-height: 41px;
+}
+
+.simple-list.num ol li p{
+    margin: 0 0 0 50px;
+}
+
+/* vertical covers template */
+.vertical-covers ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.vertical-covers ul li {
+    padding:0;
+    margin:10px 0;
+    display: inline-block;
+    clear: both;
+    width: 100%;
+}
+
+.vertical-covers .cover-wrapper{
+    float:left;
+}
+
+.vertical-covers .caption{
+    font-size: 1.1em;
+    overflow: hidden;
+    padding-top:10px;
+}
+
+.vertical-covers .cover {
+    float:left;
+}
+
+.vertical-covers .cover-wrapper:hover .cover{
+    box-shadow: 2px 2px 5px #4576BF;
+    -moz-box-shadow: 2px 2px 5px #4576BF;
+    -webkit-box-shadow: 2px 2px 5px #4576BF;
+}
+
+.vertical-covers .fake-cover, .vertical-covers .cover img{
+    vertical-align: bottom;
+}
+
+.vertical-covers .cover-wrapper .cover {
+    font-size: 10px;
+    margin-right: 12px;
+}
+
+.vertical-covers .fake-cover .author{
+    display: none;
+}
+
+.linkMedia {
+    cursor:pointer;
+    color:#0088cc;
+}
+
+.linkMedia:hover {
+    text-decoration: underline;
+}
